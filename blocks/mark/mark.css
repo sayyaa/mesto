@@ -1,0 +1,16 @@
+.mark {
+  background-color: black;
+  color: white;
+  min-width: 320px;
+  max-width: 1280px;
+  font-family: 'Inter', arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.21;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+}
