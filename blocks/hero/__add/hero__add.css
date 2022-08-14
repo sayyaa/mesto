@@ -1,0 +1,27 @@
+.hero__add {
+  box-sizing: border-box;
+  border: 2px solid white;
+  width: 100%;
+  max-width: 282px;
+  height: 50px;
+  position: relative;
+  cursor: pointer;
+}
+
+.hero__add::before {
+  position: absolute;
+  content: "";
+  width: 16px;
+  height: 2px;
+  background-color: white;
+  transform: rotate(90deg);
+}
+
+.hero__add::after {
+  position: absolute;
+  content: "";
+  width: 16px;
+  height: 2px;
+  background-color: white;
+}
+

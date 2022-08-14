@@ -1,0 +1,13 @@
+.hero__edit {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 18px;
+  min-height: 18px;
+  background-image: url(../../../assets/svg/__edit.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: 1px solid #fff;
+  position: absolute;
+  top: 8px;
+  right: 19px;
+}

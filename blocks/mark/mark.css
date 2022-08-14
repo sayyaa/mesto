@@ -1,6 +1,7 @@
 .mark {
   background-color: black;
   color: white;
+  margin: 0 auto;
   min-width: 320px;
   max-width: 1280px;
   font-family: 'Inter', arial, sans-serif;
