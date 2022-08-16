@@ -10,12 +10,14 @@
 
 @media screen and (min-width: 768px) {
   .content {
-    max-width: 600px;
+    max-width: 581px;
+    padding: 0;
   }
 }
 
 @media screen and (min-width: 1024px) {
   .content {
     max-width: 880px;
+    margin-bottom: 65px;
   }
 }
