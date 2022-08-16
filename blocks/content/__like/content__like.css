@@ -1,0 +1,7 @@
+.content__like {
+  width: 22px;
+  height: 19px;
+  background-image: url(../../../assets/svg/like.svg);
+  background-repeat: no-repeat;
+  margin-top: 5px;
+}

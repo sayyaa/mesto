@@ -30,3 +30,18 @@
 @import url(../blocks/hero/__description/hero__description.css);
 @import url(../blocks/hero/__edit/hero__edit.css);
 @import url(../blocks/hero/__add/hero__add.css);
+
+/* Content */
+
+@import url(../blocks/content/content.css);
+@import url(../blocks/content/__card/content__card.css);
+@import url(../blocks/content/__img/content__img.css);
+@import url(../blocks/content/__name-wrapper/content__name-wrapper.css);
+@import url(../blocks/content/__card-name/content__card-name.css);
+@import url(../blocks/content/__like/content__like.css);
+
+/* Footer */
+
+@import url();
+@import url();
+
