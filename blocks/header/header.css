@@ -1,5 +1,12 @@
 .header {
   padding: 28px 0 32px;
-  border-bottom: 0.5px solid #545454;
-  margin-bottom: 42px;
+  border-bottom: 1px solid #545454;
+  margin-bottom: 40px;
+}
+
+@media screen and (min-width: 1280px) {
+  .header {
+    padding: 45px 0 40px;
+    margin: 0 200px 40px;
+  }
 }

@@ -2,5 +2,13 @@
   display: block;
   max-width: 104px;
   max-height: 25px;
-  padding-left: 27px;
+  margin-left: 27px;
+}
+
+@media screen and (min-width: 1280px) {
+  .header__logo {
+    margin-left: 0;
+    max-width: 142px;
+    max-height: 33px;
+  }
 }

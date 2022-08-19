@@ -45,3 +45,13 @@
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 
+/* Popup */
+
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/__open/popup__open.css);
+@import url(../blocks/popup/__container/popup__container.css);
+@import url(../blocks/popup/__title/popup__title.css);
+@import url(../blocks/popup/__form/popup__form.css);
+@import url(../blocks/popup/__form-str/popup__form-str.css);
+@import url(../blocks/popup/__btn/popup__btn.css);
+@import url(../blocks/popup/__close-btn/popup__close-btn.css);

@@ -14,8 +14,9 @@
   }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1280px) {
   .footer__copyright {
     padding-left: 200px;
+    margin-bottom: 60px;
   }
 }

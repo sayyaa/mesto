@@ -15,7 +15,7 @@
   }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1280px) {
   .content {
     max-width: 880px;
     margin-bottom: 65px;

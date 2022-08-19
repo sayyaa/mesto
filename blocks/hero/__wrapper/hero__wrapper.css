@@ -1,5 +1,30 @@
-.hero__wrapper {
+/* .hero__wrapper {
   position: relative;
   width: 100%;
   max-width: 282px;
+} */
+
+/* @media screen and (min-width: 1280px) {
+  .hero__wrapper {
+    max-width: 336px;
+    display: grid;
+    grid-template-columns: 1fr 24px;
+    gap: 0 18px;
+  }
+} */
+
+.hero__wrapper {
+  display: grid;
+  grid-template-columns: 1fr 18px;
+  max-width: 282px;
+  gap: 14px 10px;
+  text-align: center;
+}
+
+@media screen and (min-width: 1280px) {
+  .hero__wrapper {
+    grid-template-columns: 1fr 24px;
+    max-width: 336px;
+    gap: 16px 18px;
+  }
 }

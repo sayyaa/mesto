@@ -9,7 +9,7 @@
 </head>
 <body class="mark">
   <header class="header">
-    <img src="./assets/svg/logo.svg" alt="Логотип сайта" class="header__logo">
+    <a href="#"><img src="./assets/svg/logo.svg" alt="Логотип сайта" class="header__logo"></a>
   </header>
   <main>
     <section class="hero">
@@ -69,5 +69,18 @@
   <footer class="footer">
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
+
+  <section class="popup popup__open">
+    <div class="popup__container">
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <button class="popup__close-btn button" type="button"></button>
+      <form class="popup__form">
+        <input class="popup__form-str" type="text" value="Жак-Ив Кусто" placeholder="Имя">
+        <input class="popup__form-str" type="text" value="Исследователь океана" placeholder="Чем занимаешься? ">
+        <button class="popup__btn button" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </section>
+  <script src="./index.js"></script>
 </body>
 </html>
