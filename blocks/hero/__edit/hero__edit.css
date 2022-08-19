@@ -1,0 +1,24 @@
+.hero__edit {
+  box-sizing: border-box;
+  width: 18px;
+  height: 18px;
+  background-image: url(../../../assets/svg/__edit.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: 1px solid #fff;
+  margin-top: 8px;
+  transition: opacity .2s ease-in;
+}
+
+.hero__edit:hover {
+  opacity: .6;
+}
+
+@media screen and (min-width: 1280px) {
+  .hero__edit {
+    width: 24px;
+    min-height: 24px;
+    margin-top: 15px;
+  }
+}
+

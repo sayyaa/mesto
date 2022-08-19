@@ -1,0 +1,8 @@
+.content__name-wrapper {
+  width: 100%;
+  max-width: 282px;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 25px 19px 25px 19px;
+}

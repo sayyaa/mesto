@@ -1,12 +1,133 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Жак-Ив Кусто</title>
+    <link rel="stylesheet" href="./pages/index.css" />
+  </head>
+  <body class="mark">
+    <header class="header">
+      <a href="#"
+        ><img
+          src="./assets/svg/logo.svg"
+          alt="Логотип сайта"
+          class="header__logo"
+      /></a>
+    </header>
+    <main>
+      <section class="hero">
+        <img
+          src="./assets/img/Avatar.jpg"
+          alt="Фотография пользователя"
+          class="hero__img"
+        />
+        <div class="hero__wrapper">
+          <h1 class="hero__name">Жак-Ив Кусто</h1>
+          <button class="hero__edit button" type="button"></button>
+          <p class="hero__description">Исследователь океана</p>
+        </div>
+        <button class="hero__add button" type="button"></button>
+      </section>
+      <section class="content" aria-label="Карточки мест">
+        <article class="content__card" aria-label="Карточка Места">
+          <img
+            src="./assets/img/cards/karachaevsk.jpg"
+            alt="Карачаевск"
+            class="content__img"
+          />
+          <div class="content__name-wrapper">
+            <p class="content__card-name">Карачаевск</p>
+            <button class="content__like button"></button>
+          </div>
+        </article>
+        <article class="content__card" aria-label="Карточка Места">
+          <img
+            src="./assets/img/cards/elbrus.jpg"
+            alt="Гора Эльбрус"
+            class="content__img"
+          />
+          <div class="content__name-wrapper">
+            <p class="content__card-name">Гора Эльбрус</p>
+            <button class="content__like button"></button>
+          </div>
+        </article>
+        <article class="content__card" aria-label="Карточка Места">
+          <img
+            src="./assets/img/cards/dombai.jpg"
+            alt="Домбай"
+            class="content__img"
+          />
+          <div class="content__name-wrapper">
+            <p class="content__card-name">Домбай</p>
+            <button class="content__like button"></button>
+          </div>
+        </article>
+        <article class="content__card" aria-label="Карточка Места">
+          <img
+            src="./assets/img/cards/elbrus.jpg"
+            alt="Гора Эльбрус"
+            class="content__img"
+          />
+          <div class="content__name-wrapper">
+            <p class="content__card-name">Гора Эльбрус</p>
+            <button class="content__like button"></button>
+          </div>
+        </article>
+        <article class="content__card" aria-label="Карточка Места">
+          <img
+            src="./assets/img/cards/dombai.jpg"
+            alt="Домбай"
+            class="content__img"
+          />
+          <div class="content__name-wrapper">
+            <p class="content__card-name">Домбай</p>
+            <button class="content__like button"></button>
+          </div>
+        </article>
+        <article class="content__card" aria-label="Карточка Места">
+          <img
+            src="./assets/img/cards/karachaevsk.jpg"
+            alt="Карачаево-Черкесия"
+            class="content__img"
+          />
+          <div class="content__name-wrapper">
+            <p class="content__card-name">Карачаево-Черкесия</p>
+            <button class="content__like button"></button>
+          </div>
+        </article>
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+    </footer>
 
-</body>
+    <section class="popup">
+      <div class="popup__container">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <button class="popup__close-btn button" type="button"></button>
+        <form class="popup__form">
+          <input
+            class="popup__form-str"
+            id="popup__input-name"
+            type="text"
+            value="Жак-Ив Кусто"
+            placeholder="Имя"
+          />
+          <input
+            class="popup__form-str"
+            id="popup__input-description"
+            type="text"
+            value="Исследователь океана"
+            placeholder="Чем занимаешься? "
+          />
+          <button class="popup__save-btn button" type="submit">
+            Сохранить
+          </button>
+        </form>
+      </div>
+    </section>
+    <script src="./index.js"></script>
+  </body>
 </html>

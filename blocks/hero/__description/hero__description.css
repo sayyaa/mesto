@@ -1,0 +1,15 @@
+.hero__description {
+  margin: 0;
+  margin-bottom: 30px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 1280px) {
+  .hero__description {
+    text-align: start;
+    font-size: 18px;
+    margin-bottom: 0;
+  }
+}

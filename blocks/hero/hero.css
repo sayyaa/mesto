@@ -1,0 +1,17 @@
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 36px;
+  padding: 0 19px;
+}
+
+@media screen and (min-width: 1280px) {
+  .hero {
+    flex-direction: row;
+    max-width: 880px;
+    padding: 0 200px;
+    justify-content: flex-start;
+    margin-bottom: 50px;
+  }
+}

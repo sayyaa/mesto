@@ -1,0 +1,16 @@
+.hero__name {
+  font-size: 27px;
+  font-weight: 500;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 1280px) {
+  .hero__name {
+    font-size: 42px;
+    line-height: 48px;
+    text-align: start;
+  }
+}

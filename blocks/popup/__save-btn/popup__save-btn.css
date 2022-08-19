@@ -1,0 +1,20 @@
+.popup__save-btn {
+  background-color: black;
+  color: white;
+  padding: 14px 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 358px;
+  transition: opacity .3s ease-in;
+}
+
+.popup__save-btn:hover {
+  opacity: .8;
+}
+
+@media screen and (min-width: 1280px) {
+  .popup__save-btn{
+    padding: 16px 0;
+  }
+}
+

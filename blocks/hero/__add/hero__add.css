@@ -1,0 +1,25 @@
+.hero__add {
+  box-sizing: border-box;
+  border: 2px solid white;
+  width: 100%;
+  max-width: 282px;
+  height: 50px;
+  cursor: pointer;
+  background-image: url(../../../assets/svg/palki.svg);
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: opacity .2s ease-in;
+}
+
+.hero__add:hover {
+  opacity: .6;
+}
+
+@media screen and (min-width: 1280px) {
+  .hero__add {
+    background-size: 22px 22px;
+    max-width: 150px;
+    margin-left: auto;
+  }
+}

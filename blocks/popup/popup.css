@@ -1,0 +1,34 @@
+.popup {
+  color: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  /* display: flex; */
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0,.5);
+
+}
+
+@media screen and (min-width: 768px) {
+  .popup {
+    /* max-width: 430px; */
+    /* top: 195px;
+    left: 40%;
+    width: 100%; */
+  }
+}
+
+
+@media screen and (min-width: 1280px) {
+  .popup {
+    /* max-width: 430px;
+    top: 195px;
+    left: 425px; */
+  }
+}
+

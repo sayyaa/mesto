@@ -1,0 +1,30 @@
+.popup__form-str {
+  all: unset;
+  width: 100%;
+  max-width: 238px;
+  box-sizing: border-box;
+  background-color: inherit;
+  padding-bottom: 13px;
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.21;
+}
+
+.popup__form-str:first-of-type {
+  margin-bottom: 30px;
+}
+
+.popup__form-str:last-of-type {
+  margin-bottom: 45px;
+}
+
+@media screen and (min-width: 1280px) {
+  .popup__form-str {
+    max-width: 358px;
+  }
+}
+
