@@ -4,4 +4,9 @@
   background-image: url(../../../assets/svg/like.svg);
   background-repeat: no-repeat;
   margin-top: 5px;
+  transition: opacity .2s ease-in;
+}
+
+.content__like:hover {
+  opacity: .5;
 }

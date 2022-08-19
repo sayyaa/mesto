@@ -9,6 +9,11 @@
   background-size: 16px 16px;
   background-repeat: no-repeat;
   background-position: center;
+  transition: opacity .2s ease-in;
+}
+
+.hero__add:hover {
+  opacity: .6;
 }
 
 @media screen and (min-width: 1280px) {
