@@ -2,14 +2,15 @@ const popup = document.querySelector('.popup');
 const editButton = document.querySelector('.hero__edit');
 const closeButton = document.querySelector('.popup__close-btn');
 const popupForm = document.querySelector('.popup__form')
-const inputName = document.getElementById('popup__input-name');
-const inputDescription = document.getElementById('popup__input-description');
+const inputName = document.querySelector('.popup__form-str_name');
+const inputDescription = document.querySelector('.popup__form-str_occupation');
 const heroName = document.querySelector('.hero__name');
 const heroDescription = document.querySelector('.hero__description');
 
 const popupOpen = () => {
   popup.classList.add('popup__opened');
-  console.log('1')
+  inputName.value = heroName.textContent;
+  inputDescription.value = heroDescription.textContent;
 }
 
 const popupClose = () => {
@@ -20,7 +21,7 @@ const changeProfile = (evt) => {
   evt.preventDefault();
   heroName.textContent = inputName.value;
   heroDescription.textContent = inputDescription.value;
-  popup.classList.remove('popup__opened')
+  popupClose();
 }
 
 editButton.addEventListener('click', popupOpen);

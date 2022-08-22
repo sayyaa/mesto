@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Жак-Ив Кусто</title>
+    <title>Место</title>
     <link rel="stylesheet" href="./pages/index.css" />
   </head>
   <body class="mark">
@@ -25,10 +25,10 @@
         />
         <div class="hero__wrapper">
           <h1 class="hero__name">Жак-Ив Кусто</h1>
-          <button class="hero__edit button" type="button"></button>
+          <button class="hero__edit button" type="button" aria-label="Редактировать профиль"></button>
           <p class="hero__description">Исследователь океана</p>
         </div>
-        <button class="hero__add button" type="button"></button>
+        <button class="hero__add button" type="button" aria-label="Добавить карточку места"></button>
       </section>
       <section class="content" aria-label="Карточки мест">
         <article class="content__card" aria-label="Карточка Места">
@@ -38,8 +38,8 @@
             class="content__img"
           />
           <div class="content__name-wrapper">
-            <p class="content__card-name">Карачаевск</p>
-            <button class="content__like button"></button>
+            <h2 class="content__card-name">Карачаевск</h2>
+            <button class="content__like button" aria-label="Поставить лайк"></button>
           </div>
         </article>
         <article class="content__card" aria-label="Карточка Места">
@@ -49,8 +49,8 @@
             class="content__img"
           />
           <div class="content__name-wrapper">
-            <p class="content__card-name">Гора Эльбрус</p>
-            <button class="content__like button"></button>
+            <h2 class="content__card-name">Гора Эльбрус</h2>
+            <button class="content__like button" aria-label="Поставить лайк"></button>
           </div>
         </article>
         <article class="content__card" aria-label="Карточка Места">
@@ -60,8 +60,8 @@
             class="content__img"
           />
           <div class="content__name-wrapper">
-            <p class="content__card-name">Домбай</p>
-            <button class="content__like button"></button>
+            <h2 class="content__card-name">Домбай</h2>
+            <button class="content__like button" aria-label="Поставить лайк"></button>
           </div>
         </article>
         <article class="content__card" aria-label="Карточка Места">
@@ -71,8 +71,8 @@
             class="content__img"
           />
           <div class="content__name-wrapper">
-            <p class="content__card-name">Гора Эльбрус</p>
-            <button class="content__like button"></button>
+            <h2 class="content__card-name">Гора Эльбрус</h2>
+            <button class="content__like button" aria-label="Поставить лайк"></button>
           </div>
         </article>
         <article class="content__card" aria-label="Карточка Места">
@@ -82,8 +82,8 @@
             class="content__img"
           />
           <div class="content__name-wrapper">
-            <p class="content__card-name">Домбай</p>
-            <button class="content__like button"></button>
+            <h2 class="content__card-name">Домбай</h2>
+            <button class="content__like button" aria-label="Поставить лайк"></button>
           </div>
         </article>
         <article class="content__card" aria-label="Карточка Места">
@@ -93,8 +93,8 @@
             class="content__img"
           />
           <div class="content__name-wrapper">
-            <p class="content__card-name">Карачаево-Черкесия</p>
-            <button class="content__like button"></button>
+            <h2 class="content__card-name">Карачаево-Черкесия</h2>
+            <button class="content__like button" aria-label="Поставить лайк"></button>
           </div>
         </article>
       </section>
@@ -103,31 +103,33 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
 
-    <section class="popup">
+    <div class="popup">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <button class="popup__close-btn button" type="button"></button>
-        <form class="popup__form">
+        <button class="popup__close-btn button" type="button" aria-label="Закрыть окно"></button>
+        <form class="popup__form" name="formChangeProfile">
           <input
-            class="popup__form-str"
-            id="popup__input-name"
+            class="popup__form-str popup__form-str_name"
+            name="inputChangeName"
             type="text"
             value="Жак-Ив Кусто"
             placeholder="Имя"
+            required
           />
           <input
-            class="popup__form-str"
-            id="popup__input-description"
+            class="popup__form-str popup__form-str_occupation"
+            name="inputChangeOccupation"
             type="text"
             value="Исследователь океана"
-            placeholder="Чем занимаешься? "
+            placeholder="Чем занимаешься?"
+            required
           />
-          <button class="popup__save-btn button" type="submit">
+          <button class="popup__save-btn button" type="submit" aria-label="Сохранить изменения">
             Сохранить
           </button>
         </form>
       </div>
-    </section>
-    <script src="./index.js"></script>
+    </div>
+    <script src="./scripts/index.js"></script>
   </body>
 </html>

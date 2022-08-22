@@ -1,18 +1,3 @@
-/* .hero__wrapper {
-  position: relative;
-  width: 100%;
-  max-width: 282px;
-} */
-
-/* @media screen and (min-width: 1280px) {
-  .hero__wrapper {
-    max-width: 336px;
-    display: grid;
-    grid-template-columns: 1fr 24px;
-    gap: 0 18px;
-  }
-} */
-
 .hero__wrapper {
   display: grid;
   grid-template-columns: 1fr 18px;

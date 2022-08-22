@@ -3,6 +3,7 @@
   width: 18px;
   height: 18px;
   background-image: url(../../../assets/svg/__edit.svg);
+  background-size: 7.5px 7.5px;
   background-repeat: no-repeat;
   background-position: center center;
   border: 1px solid #fff;
@@ -17,7 +18,8 @@
 @media screen and (min-width: 1280px) {
   .hero__edit {
     width: 24px;
-    min-height: 24px;
+    height: 24px;
+    background-size: 10px 10px;
     margin-top: 15px;
   }
 }
