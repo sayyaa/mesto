@@ -2,15 +2,15 @@ const popup = document.querySelector('.popup');
 const editButton = document.querySelector('.hero__edit');
 const closeButton = document.querySelector('.popup__close-btn');
 const popupForm = document.querySelector('.popup__form')
-const inputName = document.querySelector('.popup__form-str_name');
-const inputDescription = document.querySelector('.popup__form-str_occupation');
+const inputName = document.querySelector('.popup__form-str_text_name');
+const inputDescription = document.querySelector('.popup__form-str_text_occupation');
 const heroName = document.querySelector('.hero__name');
 const heroDescription = document.querySelector('.hero__description');
 
 const popupOpen = () => {
-  popup.classList.add('popup__opened');
   inputName.value = heroName.textContent;
   inputDescription.value = heroDescription.textContent;
+  popup.classList.add('popup__opened');
 }
 
 const popupClose = () => {
