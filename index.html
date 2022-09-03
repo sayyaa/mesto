@@ -37,6 +37,7 @@
             alt="Москва"
             class="content__img"
           />
+          <button class="content__bin button" aria-label="Удалить карточку"></button>
           <div class="content__name-wrapper">
             <h2 class="content__card-name">Москва</h2>
             <button class="content__like button" aria-label="Поставить лайк"></button>
@@ -48,6 +49,7 @@
             alt="Санкт-Петербург"
             class="content__img"
           />
+          <button class="content__bin button" aria-label="Удалить карточку"></button>
           <div class="content__name-wrapper">
             <h2 class="content__card-name">Санкт-Петербург</h2>
             <button class="content__like button" aria-label="Поставить лайк"></button>
@@ -59,6 +61,7 @@
             alt="Казань"
             class="content__img"
           />
+          <button class="content__bin button" aria-label="Удалить карточку"></button>
           <div class="content__name-wrapper">
             <h2 class="content__card-name">Казань</h2>
             <button class="content__like button" aria-label="Поставить лайк"></button>
@@ -70,6 +73,7 @@
             alt="Нижний Новгород"
             class="content__img"
           />
+          <button class="content__bin button" aria-label="Удалить карточку"></button>
           <div class="content__name-wrapper">
             <h2 class="content__card-name">Нижний Новгород</h2>
             <button class="content__like button" aria-label="Поставить лайк"></button>
@@ -81,6 +85,7 @@
             alt="Уфа"
             class="content__img"
           />
+          <button class="content__bin button" aria-label="Удалить карточку"></button>
           <div class="content__name-wrapper">
             <h2 class="content__card-name">Уфа</h2>
             <button class="content__like button" aria-label="Поставить лайк"></button>
@@ -92,6 +97,7 @@
             alt="Оренбург"
             class="content__img"
           />
+          <button class="content__bin button" aria-label="Удалить карточку"></button>
           <div class="content__name-wrapper">
             <h2 class="content__card-name">Оренбург</h2>
             <button class="content__like button" aria-label="Поставить лайк"></button>
@@ -103,7 +109,7 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
 
-    <div class="popup">
+    <div class="popup popup_type_edit-profile">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
         <button class="popup__close-btn button" type="button" aria-label="Закрыть окно"></button>
@@ -131,20 +137,20 @@
       </div>
     </div>
 
-    <div class="popup">
+    <div class="popup popup_type_add-card">
       <div class="popup__container">
         <h2 class="popup__title">Новое место</h2>
         <button class="popup__close-btn button" type="button" aria-label="Закрыть окно"></button>
         <form class="popup__form" name="formChangeProfile">
           <input
-            class="popup__form-str popup__form-str_text_name"
+            class="popup__form-str popup__form-str_text_city"
             name="inputChangeName"
             type="text"
             placeholder="Название"
             required
           />
           <input
-            class="popup__form-str popup__form-str_text_occupation"
+            class="popup__form-str popup__form-str_text_link"
             name="inputChangeOccupation"
             type="text"
             placeholder="Ссылка на картинку"
@@ -156,6 +162,45 @@
         </form>
       </div>
     </div>
+    <div class="popup popup_type_open-picture">
+      <div class="popup__wrapper">
+        <button class="popup__close-btn button" type="button" aria-label="Закрыть окно"></button>
+        <figure class="popup__image-wrapper">
+          <img src="./assets/img/cards/orenburg.jpg" alt="Оренбург" class="popup__image">
+          <figcaption class="popup__image-caption">Оренбург</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <template class="content__template">
+      <article class="content__template-card" aria-label="Карточка Места">
+        <img
+          src=""
+          alt=""
+          class="content__template-img"
+        />
+        <button class="content__bin button" aria-label="Удалить карточку"></button>
+        <div class="content__name-wrapper">
+          <h2 class="content__template-card-name"></h2>
+          <button class="content__like button" aria-label="Поставить лайк"></button>
+        </div>
+      </article>
+    </template>
+
+    <!-- <template class="content__template">
+      <article class="content__card" aria-label="Карточка Места">
+        <img
+          src=""
+          alt=""
+          class="content__img"
+        />
+        <button class="content__bin button" aria-label="Удалить карточку"></button>
+        <div class="content__name-wrapper">
+          <h2 class="content__card-name"></h2>
+          <button class="content__like button" aria-label="Поставить лайк"></button>
+        </div>
+      </article>
+    </template> -->
     <script src="./scripts/index.js"></script>
   </body>
 </html>

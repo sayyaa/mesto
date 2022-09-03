@@ -1,0 +1,16 @@
+.content__bin {
+  width: 18px;
+  height: 19px;
+  background-image: url(../../../assets/svg/bin.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 18px 19px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  transition: opacity .2s ease-in;
+}
+
+.content__bin:hover {
+  opacity: .6;
+}
