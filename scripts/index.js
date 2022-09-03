@@ -6,8 +6,6 @@ const editButton = document.querySelector('.hero__edit');
 const addButton = document.querySelector('.hero__add');
 const likeButton = document.querySelectorAll('.content__like');
 const closeButton = document.querySelectorAll('.popup__close-btn');
-// const popupForm = document.querySelector('.popup__form');
-const popupForm = [...document.querySelectorAll('.popup__form')];
 const inputName = document.querySelector('.popup__form-str_text_name');
 const inputDescription = document.querySelector('.popup__form-str_text_occupation');
 const inputCity = document.querySelector('.popup__form-str_text_city');
@@ -19,34 +17,6 @@ const cardName = document.querySelectorAll('.content__card-name')
 const popupImage = document.querySelector('.popup__image');
 const popupImageCaption = document.querySelector('.popup__image-caption');
 const content = document.querySelector('.content');
-// const template = document.querySelector('.content__template').content;
-
-// const initialCards = [
-//   {
-//     name: 'Оренбург',
-//     link: 'https://clck.ru/xEVbb'
-//   },
-//   {
-//     name: 'Уфа',
-//     link: 'https://clck.ru/xEUTa'
-//   },
-//   {
-//     name: 'Казань',
-//     link: './assets/img/cards/kazan.jpg'
-//   },
-//   {
-//     name: 'Нижний Новгород',
-//     link: 'https://clck.ru/xEVFH'
-//   },
-//   {
-//     name: 'Санкт-Петербург',
-//     link: 'https://clck.ru/xET78'
-//   },
-//   {
-//     name: 'Москва',
-//     link: 'https://clck.ru/xEU3V'
-//   }
-// ];
 
 const initialCards = [
   {
@@ -75,8 +45,6 @@ const initialCards = [
   },
 ];
 
-
-
 const changeProfile = (event) => {
   event.preventDefault();
   heroName.textContent = inputName.value;
@@ -102,12 +70,6 @@ addButton.addEventListener('click', () => {
   popupOpen(popupAddCard);
 })
 
-content.addEventListener('click', function(event) {
-  if(event.target.classList.contains('content__img')) {
-    event.target.addEventListener('click', popupOpen(popupOpenPicture))
-  }
-})
-
 const popupClose = (el) => {
   el.classList.remove('popup__opened');
 }
@@ -117,7 +79,9 @@ popups.forEach(popup => popup.addEventListener('click', (event) => {
     popupClose(popup)
   }
 }))
-
+const putLike = (event) => {
+  event.target.classList.toggle('content__like_active');
+}
 const addCard = ({name, link}) => {
   const contentTemplate = document.querySelector('.content__template').content;
   const contentElement = contentTemplate.querySelector('.content__card').cloneNode(true);
@@ -126,8 +90,35 @@ const addCard = ({name, link}) => {
   contentElement.querySelector('.content__card-name').textContent = name;
   contentElement.querySelector('.content__img').alt = `Город ${name}`;
 
-  content.prepend(contentElement);
+  // удаление карточки
 
+  contentElement.addEventListener('click', (event) => {
+    if(event.target.classList.contains('content__bin')) {
+    contentElement.remove()
+    }
+  })
+
+  // лайк карточке
+
+  contentElement.addEventListener('click', (event) => {
+    if(event.target.classList.contains('content__like')) {
+      putLike(event)
+    }
+  })
+
+  // открытие попапа изображения
+
+  contentElement.addEventListener('click', (event) => {
+    if(event.target.classList.contains('content__img')) {
+      popupImage.src = link;
+      popupImage.alt = name;
+      popupImageCaption.textContent = name;
+
+      popupOpen(popupOpenPicture)
+    }
+  })
+
+  content.prepend(contentElement);
 }
 
 const handleSubmit = (event) => {
@@ -146,17 +137,4 @@ initialCards.forEach(addCard)
 
 popupEditProfile.addEventListener('submit', changeProfile);
 popupAddCard.addEventListener('submit', handleSubmit)
-
-
-const putLike = (event) => {
-  event.target.classList.toggle('content__like_active');
-}
-
-content.addEventListener('click', function(event) {
-  if(event.target.classList.contains('content__like')) {
-    putLike(event)
-  }
-})
-
-likeButton.forEach(el => el.addEventListener('click', putLike));
 

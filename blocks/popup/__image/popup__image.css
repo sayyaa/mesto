@@ -6,8 +6,8 @@
 
 @media screen and (min-width: 1024px) {
   .popup__image {
-    max-width: 860px;
-    max-height: 660px;
+    max-width: 75vw;
+    max-height: 75vh;
   }
 }
 
