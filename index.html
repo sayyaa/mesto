@@ -31,7 +31,7 @@
         <button class="hero__add button" type="button" aria-label="Добавить карточку места"></button>
       </section>
       <section class="content" aria-label="Карточки мест">
-        <article class="content__card" aria-label="Карточка Места">
+        <!-- <article class="content__card" aria-label="Карточка Места">
           <img
             src="./assets/img/cards/moscow.jpg"
             alt="Москва"
@@ -102,7 +102,7 @@
             <h2 class="content__card-name">Оренбург</h2>
             <button class="content__like button" aria-label="Поставить лайк"></button>
           </div>
-        </article>
+        </article> -->
       </section>
     </main>
     <footer class="footer">
@@ -113,7 +113,7 @@
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
         <button class="popup__close-btn button" type="button" aria-label="Закрыть окно"></button>
-        <form class="popup__form" name="formChangeProfile">
+        <form class="popup__form popup__form_type_profile" name="formChangeProfile">
           <input
             class="popup__form-str popup__form-str_text_name"
             name="inputChangeName"
@@ -141,7 +141,7 @@
       <div class="popup__container">
         <h2 class="popup__title">Новое место</h2>
         <button class="popup__close-btn button" type="button" aria-label="Закрыть окно"></button>
-        <form class="popup__form" name="formChangeProfile">
+        <form class="popup__form popup__form_type_add-card" name="formChangeProfile">
           <input
             class="popup__form-str popup__form-str_text_city"
             name="inputChangeName"
@@ -173,15 +173,15 @@
     </div>
 
     <template class="content__template">
-      <article class="content__template-card" aria-label="Карточка Места">
+      <article class="content__card" aria-label="Карточка Места">
         <img
           src=""
           alt=""
-          class="content__template-img"
+          class="content__img"
         />
         <button class="content__bin button" aria-label="Удалить карточку"></button>
         <div class="content__name-wrapper">
-          <h2 class="content__template-card-name"></h2>
+          <h2 class="content__card-name"></h2>
           <button class="content__like button" aria-label="Поставить лайк"></button>
         </div>
       </article>
@@ -201,6 +201,7 @@
         </div>
       </article>
     </template> -->
+
     <script src="./scripts/index.js"></script>
   </body>
 </html>

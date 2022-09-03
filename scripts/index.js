@@ -1,6 +1,4 @@
-// const popup = document.querySelectorAll('.popup');
 const popups = [...document.querySelectorAll('.popup')];
-// const popup = document.querySelector('.popup')
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupAddCard = document.querySelector('.popup_type_add-card');
 const popupOpenPicture = document.querySelector('.popup_type_open-picture');
@@ -8,8 +6,8 @@ const editButton = document.querySelector('.hero__edit');
 const addButton = document.querySelector('.hero__add');
 const likeButton = document.querySelectorAll('.content__like');
 const closeButton = document.querySelectorAll('.popup__close-btn');
-const popupForm = document.querySelector('.popup__form');
-// const popupForm = [...document.querySelectorAll('.popup__form')];
+// const popupForm = document.querySelector('.popup__form');
+const popupForm = [...document.querySelectorAll('.popup__form')];
 const inputName = document.querySelector('.popup__form-str_text_name');
 const inputDescription = document.querySelector('.popup__form-str_text_occupation');
 const inputCity = document.querySelector('.popup__form-str_text_city');
@@ -21,15 +19,47 @@ const cardName = document.querySelectorAll('.content__card-name')
 const popupImage = document.querySelector('.popup__image');
 const popupImageCaption = document.querySelector('.popup__image-caption');
 const content = document.querySelector('.content');
+const template = document.querySelector('.content__template').content;
+
+// const initialCards = [
+//   {
+//     name: 'Оренбург',
+//     link: 'https://clck.ru/xEVbb'
+//   },
+//   {
+//     name: 'Уфа',
+//     link: 'https://clck.ru/xEUTa'
+//   },
+//   {
+//     name: 'Казань',
+//     link: './assets/img/cards/kazan.jpg'
+//   },
+//   {
+//     name: 'Нижний Новгород',
+//     link: 'https://clck.ru/xEVFH'
+//   },
+//   {
+//     name: 'Санкт-Петербург',
+//     link: 'https://clck.ru/xET78'
+//   },
+//   {
+//     name: 'Москва',
+//     link: 'https://clck.ru/xEU3V'
+//   }
+// ];
 
 const initialCards = [
   {
-    name: 'Москва',
-    link: 'https://clck.ru/xEU3V'
+    name: 'Новотроицк',
+    link: './assets/img/cards/novotroitsk.jpg'
   },
   {
-    name: 'Санкт-Петербург',
-    link: 'https://clck.ru/xET78'
+    name: 'Оренбург',
+    link: './assets/img/cards/orenburg.jpg'
+  },
+  {
+    name: 'Уфа',
+    link: './assets/img/cards/ufa.jpg'
   },
   {
     name: 'Казань',
@@ -37,17 +67,15 @@ const initialCards = [
   },
   {
     name: 'Нижний Новгород',
-    link: 'https://clck.ru/xEVFH'
-  },
+    link: './assets/img/cards/novgorod.jpg'
+      },
   {
-    name: 'Уфа',
-    link: 'https://clck.ru/xEUTa'
+    name: 'Москва',
+    link: './assets/img/cards/moscow.jpg'
   },
-  {
-    name: 'Оренбург',
-    link: 'https://clck.ru/xEVbb'
-  }
 ];
+
+
 
 const changeProfile = (event) => {
   event.preventDefault();
@@ -76,7 +104,7 @@ addButton.addEventListener('click', () => {
 
 content.addEventListener('click', function(event) {
   if(event.target.classList.contains('content__img')) {
-    cardImages.forEach(el => el.addEventListener('click', popupOpen(popupOpenPicture)));
+    event.target.addEventListener('click', popupOpen(popupOpenPicture))
   }
 })
 
@@ -96,21 +124,33 @@ const putLike = (event) => {
 
 likeButton.forEach(el => el.addEventListener('click', putLike));
 
-// popupForm[1].addEventListener('submit', (event) => {
-//   event.preventDefault();
-//   addCard();
-// })
-popupForm.addEventListener('submit', changeProfile);
+const addCard = ({name, link}) => {
+  const contentTemplate = document.querySelector('.content__template').content;
+  const contentElement = contentTemplate.querySelector('.content__card').cloneNode(true);
+
+  contentElement.querySelector('.content__img').src = link;
+  contentElement.querySelector('.content__card-name').textContent = name;
+  contentElement.querySelector('.content__img').alt = `Город ${name}`;
+
+  content.prepend(contentElement);
+
+}
+
+const handleSubmit = (event) => {
+  event.preventDefault();
+  const name = inputCity.value;
+  const link = inputLink.value;
+
+  addCard({name, link});
+  popupClose(popupAddCard)
+
+  inputCity.value = '';
+  inputLink.value = '';
+}
+
+initialCards.forEach(addCard)
+
+popupEditProfile.addEventListener('submit', changeProfile);
+popupAddCard.addEventListener('submit', handleSubmit)
 
 
-// popupForm.forEach(el => el.addEventListener('click', () => {
-
-// })
-
-// popups.forEach(popup => popup.addEventListener('submit', (event) => {
-//   if (event.target.classList.contains('popup__close-btn')) {
-//     popupClose(popup)
-//   }
-// }))
-
-// console.log(popupForm)
