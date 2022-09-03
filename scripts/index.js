@@ -19,7 +19,7 @@ const cardName = document.querySelectorAll('.content__card-name')
 const popupImage = document.querySelector('.popup__image');
 const popupImageCaption = document.querySelector('.popup__image-caption');
 const content = document.querySelector('.content');
-const template = document.querySelector('.content__template').content;
+// const template = document.querySelector('.content__template').content;
 
 // const initialCards = [
 //   {
@@ -118,12 +118,6 @@ popups.forEach(popup => popup.addEventListener('click', (event) => {
   }
 }))
 
-const putLike = (event) => {
-  event.target.classList.toggle('content__like_active');
-}
-
-likeButton.forEach(el => el.addEventListener('click', putLike));
-
 const addCard = ({name, link}) => {
   const contentTemplate = document.querySelector('.content__template').content;
   const contentElement = contentTemplate.querySelector('.content__card').cloneNode(true);
@@ -153,4 +147,16 @@ initialCards.forEach(addCard)
 popupEditProfile.addEventListener('submit', changeProfile);
 popupAddCard.addEventListener('submit', handleSubmit)
 
+
+const putLike = (event) => {
+  event.target.classList.toggle('content__like_active');
+}
+
+content.addEventListener('click', function(event) {
+  if(event.target.classList.contains('content__like')) {
+    putLike(event)
+  }
+})
+
+likeButton.forEach(el => el.addEventListener('click', putLike));
 
