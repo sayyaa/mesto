@@ -1,140 +1,170 @@
-const popups = [...document.querySelectorAll('.popup')];
-const popupEditProfile = document.querySelector('.popup_type_edit-profile');
-const popupAddCard = document.querySelector('.popup_type_add-card');
-const popupOpenPicture = document.querySelector('.popup_type_open-picture');
-const editButton = document.querySelector('.hero__edit');
-const addButton = document.querySelector('.hero__add');
-const likeButton = document.querySelectorAll('.content__like');
-const closeButton = document.querySelectorAll('.popup__close-btn');
-const inputName = document.querySelector('.popup__form-str_text_name');
-const inputDescription = document.querySelector('.popup__form-str_text_occupation');
-const inputCity = document.querySelector('.popup__form-str_text_city');
-const inputLink = document.querySelector('.popup__form-str_text_link');
-const heroName = document.querySelector('.hero__name');
-const heroDescription = document.querySelector('.hero__description');
-const cardImages = [...document.querySelectorAll('.content__img')];
-const cardName = document.querySelectorAll('.content__card-name')
-const popupImage = document.querySelector('.popup__image');
-const popupImageCaption = document.querySelector('.popup__image-caption');
-const content = document.querySelector('.content');
+const popups = [...document.querySelectorAll(".popup")];
+const popupEditProfile = document.querySelector(".popup_type_edit-profile");
+const popupAddCard = document.querySelector(".popup_type_add-card");
+const popupOpenPicture = document.querySelector(".popup_type_open-picture");
+const editButton = document.querySelector(".hero__edit");
+const addButton = document.querySelector(".hero__add");
+const inputName = document.querySelector(".popup__form-str_text_name");
+const inputDescription = document.querySelector(
+  ".popup__form-str_text_occupation"
+);
+const inputCity = document.querySelector(".popup__form-str_text_city");
+const inputLink = document.querySelector(".popup__form-str_text_link");
+const heroName = document.querySelector(".hero__name");
+const heroDescription = document.querySelector(".hero__description");
+const popupImage = document.querySelector(".popup__image");
+const popupImageCaption = document.querySelector(".popup__image-caption");
+const content = document.querySelector(".content");
 
 const initialCards = [
   {
-    name: 'Новотроицк',
-    link: './assets/img/cards/novotroitsk.jpg'
+    name: "Новотроицк",
+    link: "./assets/img/cards/novotroitsk.jpg",
   },
   {
-    name: 'Оренбург',
-    link: './assets/img/cards/orenburg.jpg'
+    name: "Оренбург",
+    link: "./assets/img/cards/orenburg.jpg",
   },
   {
-    name: 'Уфа',
-    link: './assets/img/cards/ufa.jpg'
+    name: "Уфа",
+    link: "./assets/img/cards/ufa.jpg",
   },
   {
-    name: 'Казань',
-    link: './assets/img/cards/kazan.jpg'
+    name: "Казань",
+    link: "./assets/img/cards/kazan.jpg",
   },
   {
-    name: 'Нижний Новгород',
-    link: './assets/img/cards/novgorod.jpg'
-      },
+    name: "Нижний Новгород",
+    link: "./assets/img/cards/novgorod.jpg",
+  },
   {
-    name: 'Москва',
-    link: './assets/img/cards/moscow.jpg'
+    name: "Москва",
+    link: "./assets/img/cards/moscow.jpg",
   },
 ];
+
+// функия изменения профиля из формы //
 
 const changeProfile = (event) => {
   event.preventDefault();
   heroName.textContent = inputName.value;
   heroDescription.textContent = inputDescription.value;
-  popupClose(popupEditProfile);
-}
+  closePopup(popupEditProfile);
+};
 
-const savedCurrentProfile = () => {
+// функция для заполненных импутов при открытии попапа //
+
+const fillProfileInputs = () => {
   inputName.value = heroName.textContent;
   inputDescription.value = heroDescription.textContent;
-}
+};
 
-const popupOpen = (popup) => {
-  popup.classList.add('popup__opened');
-}
+// универсальная функция открытия попапа //
 
-editButton.addEventListener('click', () => {
-  savedCurrentProfile();
-  popupOpen(popupEditProfile);
+const openPopup = (popup) => {
+  popup.classList.add("popup__opened");
+};
+
+// слушатель кнопки открытия попапа профиля и заполнение формы //
+
+editButton.addEventListener("click", () => {
+  fillProfileInputs();
+  openPopup(popupEditProfile);
 });
 
-addButton.addEventListener('click', () => {
-  popupOpen(popupAddCard);
-})
+// слушатель кнопки открытия попапа редактирования карточки //
 
-const popupClose = (el) => {
-  el.classList.remove('popup__opened');
-}
+addButton.addEventListener("click", () => {
+  openPopup(popupAddCard);
+});
 
-popups.forEach(popup => popup.addEventListener('click', (event) => {
-  if (event.target.classList.contains('popup__close-btn')) {
-    popupClose(popup)
-  }
-}))
-const putLike = (event) => {
-  event.target.classList.toggle('content__like_active');
-}
-const addCard = ({name, link}) => {
-  const contentTemplate = document.querySelector('.content__template').content;
-  const contentElement = contentTemplate.querySelector('.content__card').cloneNode(true);
+// универсальная функция закрытия попапа /
 
-  contentElement.querySelector('.content__img').src = link;
-  contentElement.querySelector('.content__card-name').textContent = name;
-  contentElement.querySelector('.content__img').alt = `Город ${name}`;
+const closePopup = (popup) => {
+  popup.classList.remove("popup__opened");
+};
+
+// слушатель коллекции попап элементов, логика закрывающая попапы //
+
+popups.forEach((popup) =>
+  popup.addEventListener("click", (event) => {
+    if (event.target.classList.contains("popup__close-btn")) {
+      closePopup(popup);
+    }
+  })
+);
+
+// функция переключающая состояния лайков //
+
+const toggleLike = (event) => {
+  event.target.classList.toggle("content__like_active");
+};
+
+// функция создания карточки //
+
+const createCard = ({ name, link }) => {
+  const contentTemplate = document.querySelector(".content__template").content;
+  const contentElement = contentTemplate
+    .querySelector(".content__card")
+    .cloneNode(true);
+
+  const contentImage = contentElement.querySelector(".content__img");
+  const contentCardName = contentElement.querySelector(".content__card-name");
+
+  contentImage.src = link;
+  contentCardName.textContent = name;
+  contentImage.alt = `Город ${name}`;
 
   // удаление карточки
 
-  contentElement.addEventListener('click', (event) => {
-    if(event.target.classList.contains('content__bin')) {
-    contentElement.remove()
-    }
-  })
+  const contentBin = contentElement.querySelector('.content__bin');
+
+  contentBin.addEventListener("click", () => {
+      contentElement.remove();
+  });
 
   // лайк карточке
 
-  contentElement.addEventListener('click', (event) => {
-    if(event.target.classList.contains('content__like')) {
-      putLike(event)
-    }
+  const contentLike = contentElement.querySelector('.content__like');
+
+  contentLike.addEventListener('click', (event) => {
+    toggleLike(event);
   })
 
   // открытие попапа изображения
 
-  contentElement.addEventListener('click', (event) => {
-    if(event.target.classList.contains('content__img')) {
-      popupImage.src = link;
-      popupImage.alt = name;
-      popupImageCaption.textContent = name;
+  contentImage.addEventListener('click', (event) => {
+    popupImage.src = link;
+    popupImage.alt = name;
+    popupImageCaption.textContent = name;
 
-      popupOpen(popupOpenPicture)
-    }
+    openPopup(popupOpenPicture);
   })
 
-  content.prepend(contentElement);
-}
+  return contentElement;
+};
 
-const handleSubmit = (event) => {
+// функция добавления карточки //
+
+const addCard = ({ name, link }) => {
+  const cardElement = createCard({ name, link });
+  content.prepend(cardElement);
+};
+
+initialCards.forEach(addCard);
+
+// функция обработчик //
+
+const handleCardFormSubmit = (event) => {
   event.preventDefault();
   const name = inputCity.value;
   const link = inputLink.value;
 
-  addCard({name, link});
-  popupClose(popupAddCard)
+  addCard({ name, link });
+  closePopup(popupAddCard);
 
-  inputCity.value = '';
-  inputLink.value = '';
-}
+  event.target.reset();
+};
 
-initialCards.forEach(addCard)
-
-popupEditProfile.addEventListener('submit', changeProfile);
-popupAddCard.addEventListener('submit', handleSubmit)
-
+popupEditProfile.addEventListener("submit", changeProfile);
+popupAddCard.addEventListener("submit", handleCardFormSubmit);
