@@ -4,12 +4,12 @@ const popupAddCard = document.querySelector(".popup_type_add-card");
 const popupOpenPicture = document.querySelector(".popup_type_open-picture");
 const editButton = document.querySelector(".hero__edit");
 const addButton = document.querySelector(".hero__add");
-const inputName = document.querySelector(".popup__form-str_text_name");
+const inputName = document.querySelector(".form__str_text_name");
 const inputDescription = document.querySelector(
-  ".popup__form-str_text_occupation"
+  ".form__str_text_occupation"
 );
-const inputCity = document.querySelector(".popup__form-str_text_city");
-const inputLink = document.querySelector(".popup__form-str_text_link");
+const inputCity = document.querySelector(".form__str_text_city");
+const inputLink = document.querySelector(".form__str_text_link");
 const heroName = document.querySelector(".hero__name");
 const heroDescription = document.querySelector(".hero__description");
 const popupImage = document.querySelector(".popup__image");
