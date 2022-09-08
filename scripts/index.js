@@ -43,6 +43,7 @@ const initialCards = [
   },
 ];
 
+
 // функия изменения профиля из формы //
 
 const changeProfile = (event) => {
@@ -63,6 +64,8 @@ const fillProfileInputs = () => {
 
 const openPopup = (popup) => {
   popup.classList.add("popup__opened");
+  document.addEventListener('keydown', closePopupWithKey);
+  document.addEventListener('click', closePopupWithOverlay);
 };
 
 // слушатель кнопки открытия попапа профиля и заполнение формы //
@@ -83,6 +86,41 @@ addButton.addEventListener("click", () => {
 const closePopup = (popup) => {
   popup.classList.remove("popup__opened");
 };
+
+
+const closePopupWithKey = (event) => {
+    popups.forEach(popup => {
+    if (event.key === 'Escape') {
+      closePopup(popup)
+    }
+    document.removeEventListener('keydown', closePopupWithKey)
+  })
+}
+
+
+const closePopupWithOverlay = () => {
+  popups.forEach((popup) =>
+  popup.addEventListener("click", (event) => {
+    if (event.target === event.currentTarget) {
+      closePopup(popup);
+    }
+    document.removeEventListener('click', closePopupWithOverlay);
+  })
+);
+}
+
+
+
+
+
+// popups.forEach((popup) =>
+//   popup.addEventListener("click", (evt) => {
+//     console.log(evt)
+//       console.log(evt.target)
+//       console.log(evt.currentTarget)
+//   }))
+
+
 
 // слушатель коллекции попап элементов, логика закрывающая попапы //
 
