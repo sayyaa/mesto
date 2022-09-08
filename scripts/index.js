@@ -4,12 +4,12 @@ const popupAddCard = document.querySelector(".popup_type_add-card");
 const popupOpenPicture = document.querySelector(".popup_type_open-picture");
 const editButton = document.querySelector(".hero__edit");
 const addButton = document.querySelector(".hero__add");
-const inputName = document.querySelector(".form__str_text_name");
+const inputName = document.querySelector(".form__input_text_name");
 const inputDescription = document.querySelector(
-  ".form__str_text_occupation"
+  ".form__input_text_occupation"
 );
-const inputCity = document.querySelector(".form__str_text_city");
-const inputLink = document.querySelector(".form__str_text_link");
+const inputCity = document.querySelector(".form__input_text_city");
+const inputLink = document.querySelector(".form__input_text_link");
 const heroName = document.querySelector(".hero__name");
 const heroDescription = document.querySelector(".hero__description");
 const popupImage = document.querySelector(".popup__image");
@@ -87,6 +87,7 @@ const closePopup = (popup) => {
   popup.classList.remove("popup__opened");
 };
 
+// функция закрытия попапа нажатием на ескейп
 
 const closePopupWithKey = (event) => {
     popups.forEach(popup => {
@@ -97,10 +98,11 @@ const closePopupWithKey = (event) => {
   })
 }
 
+// функция закрытия попапа нажатием на оверлей
 
 const closePopupWithOverlay = () => {
   popups.forEach((popup) =>
-  popup.addEventListener("click", (event) => {
+  popup.addEventListener("mousedown", (event) => {
     if (event.target === event.currentTarget) {
       closePopup(popup);
     }
@@ -108,6 +110,7 @@ const closePopupWithOverlay = () => {
   })
 );
 }
+
 
 
 

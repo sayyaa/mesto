@@ -64,7 +64,10 @@
 
 @import url(../blocks/form/form.css);
 @import url(../blocks/form/__set/form__set.css);
-@import url(../blocks/form/__str/form__str.css);
+@import url(../blocks/form/__input/form__input.css);
+@import url(../blocks/form/__input/_type/form__input_type_error.css);
+@import url(../blocks/form/__input-error/form__input-error.css);
+@import url(../blocks/form/__input-error/_visible/form__input-error_visible.css);
 @import url(../blocks/form/__save-btn/form__save-btn.css);
-@import url(../blocks/form/__save-btn/form__save-btn_disabled.css);
+@import url(../blocks/form/__save-btn/_disabled/form__save-btn_disabled.css);
 

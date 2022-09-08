@@ -4,6 +4,7 @@
   font-size: inherit;
   min-height: 46px;
   margin: 0 auto;
+  margin-top: 15px;
   width: 100%;
   max-width: 358px;
   transition: opacity .3s ease-in;

@@ -1,4 +1,4 @@
-.form__str {
+.form__input {
   all: unset;
   width: 100%;
   min-width: 238px;
@@ -14,16 +14,16 @@
   line-height: 1.21;
 }
 
-.form__str:first-of-type {
-  margin-bottom: 30px;
+.form__input:first-of-type {
+  /* margin-bottom: 30px; */
 }
 
-.form__str:last-of-type {
-  margin-bottom: 45px;
+.form__input:last-of-type {
+  /* margin-bottom: 45px; */
 }
 
 @media screen and (min-width: 1280px) {
-  .form__str {
+  .form__input {
     min-width: 358px;
   }
 }

@@ -58,7 +58,8 @@
         >
           <fieldset class="form__set">
             <input
-              class="form__str form__str_text_name"
+              class="form__input form__input_text_name"
+              id="name-input"
               name="inputChangeName"
               type="text"
               value="Жак-Ив Кусто"
@@ -67,8 +68,10 @@
               maxlength="40"
               required
             />
+            <span class="form__input-error name-input-error">error</span>
             <input
-              class="form__str form__str_text_occupation"
+              class="form__input form__input_text_occupation"
+              id="occupation-input"
               name="inputChangeOccupation"
               type="text"
               value="Исследователь океана"
@@ -77,6 +80,7 @@
               maxlength="200"
               required
             />
+            <span class="form__input-error occupation-input-error">error</span>
             <button class="form__save-btn button" type="submit">
               Сохранить
             </button>
@@ -99,19 +103,23 @@
         >
           <fieldset class="form__set">
             <input
-              class="form__str form__str_text_city"
-              name="inputChangeName"
+              class="form__input form__input_text_city"
+              id="city-input"
+              name="inputChangeCity"
               type="text"
               placeholder="Название"
               required
             />
+            <span class="form__input-error city-input-error"></span>
             <input
-              class="form__str form__str_text_link"
-              name="inputChangeOccupation"
-              type="text"
+              class="form__input form__input_text_link"
+              id="url-input"
+              name="inputChangeUrl"
+              type="url"
               placeholder="Ссылка на картинку"
               required
             />
+            <span class="form__input-error url-input-error"></span>
             <button class="form__save-btn button" type="submit">
               Создать
             </button>
