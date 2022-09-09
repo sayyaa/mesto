@@ -14,14 +14,6 @@
   line-height: 1.21;
 }
 
-.form__input:first-of-type {
-  /* margin-bottom: 30px; */
-}
-
-.form__input:last-of-type {
-  /* margin-bottom: 45px; */
-}
-
 @media screen and (min-width: 1280px) {
   .form__input {
     min-width: 358px;

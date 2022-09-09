@@ -10,63 +10,71 @@ const enableValidationConfig = {
 
 // функция, показывающая сообщение об ошибке, при невалидном поле
 //(form, input, errorMessage, config)
-const showInputError = (form, input, config) => {
-  const error = form.document.querySelector(`${input.id}-error`);
+// const showInputError = (form, input, errorMessage) => {
+//   const error = form.querySelector(`.${input.id}-error`);
+//   error.classList.add(enableValidationConfig.errorClass);
+//   error.textContent = errorMessage;
+//   input.classList.add(enableValidationConfig.inputErrorClass);
+// }
+
+const showInputError = (form, input, errorMessage, config) => {
+  const error = form.querySelector(`.${input.id}-error`);
+  error.textContent = errorMessage;
   error.classList.add(config.errorClass);
-  error.textContent = input.validationMessage;
   input.classList.add(config.inputErrorClass);
 }
+
 
 // функция, скрывающая сообщение об ошибке, когда поле становится валидным
 
 const hideInputError = (form, input, config) => {
-  const error = form.document.querySelector(`${input.id}-error`);
+  const error = form.querySelector(`.${input.id}-error`);
   error.classList.remove(config.errorClass);
   input.classList.remove(config.inputErrorClass);
   error.textContent = '';
 }
 
-// функция логики валидности
-
-const hasInvalidInput = (inputs) => {
-  return inputs.some(input => {
-    return !input.validity.valid
-  })
-
-}
 
 // функция, проверяющая инпут на валидность
 
 const checkInputValidity = (form, input) => {
   if(!input.validity.valid) {
-    showInputError(form, input, input.validationMessage, config)
+    showInputError(form, input, input.validationMessage, enableValidationConfig)
   } else {
-    hideInputError(form, input, config)
+    hideInputError(form, input, enableValidationConfig)
   }
 }
 
-// функция, вешающая обработчик изменения поля ввода на все инпуты
+const hasInvalidInput = (inputs) => {
+  return inputs.some(input => !input.validity.valid)
+}
+
+const toggleButtonState = (inputs, button, config) => {
+  if (hasInvalidInput(inputs)) {
+    button.classList.add(config.inactiveButtonClass);
+    button.setAttribute('disabled', true);
+  } else {
+    button.classList.remove(config.inactiveButtonClass);
+    button.removeAttribute('disabled', true);
+  }
+}
+
 
 const setEventListeners = (form, config) => {
   const inputs = [...form.querySelectorAll(config.inputSelector)];
+  const button = form.querySelector(config.submitButtonSelector)
+
+  toggleButtonState(inputs, button, config);
+
 
   inputs.forEach(input => {
-    input.addEventListener('input', checkInputValidity)
+    input.addEventListener('input', () => {
+      checkInputValidity(form, input);
+      toggleButtonState(inputs, button, config);
+    })
   })
+
 }
-
-
-// обработчик для формы инпут
-
-const setHandlers = (form, config) => {
-  const inputs = [...form.querySelectorAll(config.inputSelector)];
-
-  inputs.forEach(input => {
-    input.addEventListener('input', checkInputValidity)
-  })
-}
-
-
 
 // функция в данный момент сбрасывает стандартное действие браузера
 
@@ -74,14 +82,19 @@ const enableValidation = (config) => {
   const forms = [...document.querySelectorAll(config.formSelector)];
 
   forms.forEach(form => {
-    form.addEventListener('submit', (event) => {
-      setEventListeners(form)
+    form.addEventListener('submit', () => {
+
+      const fieldsets = [...form.querySelectorAll('.form__set')];
+      fieldsets.forEach(fieldset => setEventListeners(fieldset, enableValidationConfig))
+      })
+      setEventListeners(form, enableValidationConfig)
     })
-  })
 
-  // setHandlers(form, config)
-}
-
-
+  }
 
 enableValidation(enableValidationConfig);
+
+
+
+
+
