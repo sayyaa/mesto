@@ -1,4 +1,4 @@
-.popup__form-str {
+.form__input {
   all: unset;
   width: 100%;
   min-width: 238px;
@@ -14,16 +14,8 @@
   line-height: 1.21;
 }
 
-.popup__form-str:first-of-type {
-  margin-bottom: 30px;
-}
-
-.popup__form-str:last-of-type {
-  margin-bottom: 45px;
-}
-
 @media screen and (min-width: 1280px) {
-  .popup__form-str {
+  .form__input {
     min-width: 358px;
   }
 }

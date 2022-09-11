@@ -52,28 +52,39 @@
           aria-label="Закрыть окно"
         ></button>
         <form
-          class="popup__form popup__form_type_profile"
+          class="form form_type_profile"
           name="formChangeProfile"
+          novalidate
         >
-          <input
-            class="popup__form-str popup__form-str_text_name"
-            name="inputChangeName"
-            type="text"
-            value="Жак-Ив Кусто"
-            placeholder="Имя"
-            required
-          />
-          <input
-            class="popup__form-str popup__form-str_text_occupation"
-            name="inputChangeOccupation"
-            type="text"
-            value="Исследователь океана"
-            placeholder="Чем занимаешься?"
-            required
-          />
-          <button class="popup__save-btn button" type="submit">
-            Сохранить
-          </button>
+          <fieldset class="form__set">
+            <input
+              class="form__input form__input_text_name"
+              id="name-input"
+              name="inputChangeName"
+              type="text"
+              value="Жак-Ив Кусто"
+              placeholder="Имя"
+              minlength="2"
+              maxlength="40"
+              required
+            />
+            <span class="form__input-error name-input-error"></span>
+            <input
+              class="form__input form__input_text_occupation"
+              id="occupation-input"
+              name="inputChangeOccupation"
+              type="text"
+              value="Исследователь океана"
+              placeholder="Чем занимаешься?"
+              minlength="2"
+              maxlength="200"
+              required
+            />
+            <span class="form__input-error occupation-input-error"></span>
+            <button class="form__save-btn button" type="submit">
+              Сохранить
+            </button>
+          </fieldset>
         </form>
       </div>
     </div>
@@ -86,24 +97,35 @@
           aria-label="Закрыть окно"
         ></button>
         <form
-          class="popup__form popup__form_type_add-card"
+          class="form form_type_add-card"
           name="formChangeProfile"
+          novalidate
         >
-          <input
-            class="popup__form-str popup__form-str_text_city"
-            name="inputChangeName"
-            type="text"
-            placeholder="Название"
-            required
-          />
-          <input
-            class="popup__form-str popup__form-str_text_link"
-            name="inputChangeOccupation"
-            type="text"
-            placeholder="Ссылка на картинку"
-            required
-          />
-          <button class="popup__save-btn button" type="submit">Создать</button>
+          <fieldset class="form__set">
+            <input
+              class="form__input form__input_text_city"
+              id="city-input"
+              name="inputChangeCity"
+              type="text"
+              placeholder="Название"
+              minlength="2"
+              maxlength="30"
+              required
+            />
+            <span class="form__input-error city-input-error"></span>
+            <input
+              class="form__input form__input_text_link"
+              id="url-input"
+              name="inputChangeUrl"
+              type="url"
+              placeholder="Ссылка на картинку"
+              required
+            />
+            <span class="form__input-error url-input-error"></span>
+            <button class="form__save-btn button" type="submit">
+              Создать
+            </button>
+          </fieldset>
         </form>
       </div>
     </div>
@@ -115,14 +137,22 @@
           aria-label="Закрыть окно"
         ></button>
         <figure class="popup__image-wrapper">
-          <img src="./assets/img/cards/moscow.jpg" alt="Москва" class="popup__image" />
+          <img
+            src="./assets/img/cards/moscow.jpg"
+            alt="Москва"
+            class="popup__image"
+          />
           <figcaption class="popup__image-caption"></figcaption>
         </figure>
       </div>
     </div>
     <template class="content__template">
       <article class="content__card" aria-label="Карточка Места">
-        <img src="./assets/img/cards/moscow.jpg" alt="Москва" class="content__img" />
+        <img
+          src="./assets/img/cards/moscow.jpg"
+          alt="Москва"
+          class="content__img"
+        />
         <button
           class="content__bin button"
           aria-label="Удалить карточку"
@@ -136,6 +166,7 @@
         </div>
       </article>
     </template>
-    <script src="./scripts/index.js"></script>
+    <script type="module" src="./scripts/validate.js"></script>
+    <script type="module" src="./scripts/index.js"></script>
   </body>
 </html>
