@@ -1,9 +1,8 @@
-import { disableButton, enableButton, hideInputError } from "./validate.js";
-
 const popups = [...document.querySelectorAll(".popup")];
 const popupEditProfile = document.querySelector(".popup_type_edit-profile");
 const popupAddCard = document.querySelector(".popup_type_add-card");
 const popupOpenPicture = document.querySelector(".popup_type_open-picture");
+
 const editButton = document.querySelector(".hero__edit");
 const addButton = document.querySelector(".hero__add");
 const inputName = document.querySelector(".form__input_text_name");
@@ -15,47 +14,14 @@ const heroDescription = document.querySelector(".hero__description");
 const popupImage = document.querySelector(".popup__image");
 const popupImageCaption = document.querySelector(".popup__image-caption");
 const content = document.querySelector(".content");
-// const form = document.querySelector('.form');
-// const input = document.querySelectorAll('.form__input');
-const activeButtonClasses = [...document.querySelectorAll(".form__save-btn")];
+
+const contentTemplate = document.querySelector(".content__template").content;
+
+const buttonFormProfile = popupEditProfile.querySelector(".form__save-btn");
+const buttonFormAddCard = popupAddCard.querySelector(".form__save-btn");
 const inactiveButtonClass = "form__save-btn_disabled";
-const inputErrorClass = 'form__input_type_error';
-const errorClass = 'form__input-error_visible';
-
-
-
-// const hideInputError = (form, input, {errorClass, inputErrorClass}) => {
-//   const error = form.querySelector(`.${input.id}-error`);
-//   error.classList.remove(errorClass);
-//   input.classList.remove(inputErrorClass);
-//   error.textContent = "";
-// };
-const initialCards = [
-  {
-    name: "Новотроицк",
-    link: "./assets/img/cards/novotroitsk.jpg",
-  },
-  {
-    name: "Оренбург",
-    link: "./assets/img/cards/orenburg.jpg",
-  },
-  {
-    name: "Уфа",
-    link: "./assets/img/cards/ufa.jpg",
-  },
-  {
-    name: "Казань",
-    link: "./assets/img/cards/kazan.jpg",
-  },
-  {
-    name: "Нижний Новгород",
-    link: "./assets/img/cards/novgorod.jpg",
-  },
-  {
-    name: "Москва",
-    link: "./assets/img/cards/moscow.jpg",
-  },
-];
+const inputErrorClass = "form__input_type_error";
+const errorClass = "form__input-error_visible";
 
 // функия изменения профиля из формы //
 
@@ -77,14 +43,18 @@ const fillProfileInputs = () => {
 
 const openPopup = (popup) => {
   popup.classList.add("popup__opened");
-  document.addEventListener("keydown", closePopupWithKey);
-  document.addEventListener("click", closePopupWithOverlay);
+  document.addEventListener("keydown", closePopupByEsc);
+  closePopupByOverlay();
+};
 
-  const form = popup.querySelector('.form');
-  const inputs = [...form.querySelectorAll('.form__input')];
-  inputs.forEach(input => {
-    hideInputError(form, input, {errorClass, inputErrorClass});
-  })
+// Функция убирающая ошибку валидации у конкретного попапа
+
+const disableValidation = (popup) => {
+  const form = popup.querySelector(".form");
+  const inputs = [...form.querySelectorAll(".form__input")];
+  inputs.forEach((input) => {
+    hideInputError(form, input, { errorClass, inputErrorClass });
+  });
 };
 
 // слушатель кнопки открытия попапа профиля и заполнение формы //
@@ -92,50 +62,48 @@ const openPopup = (popup) => {
 editButton.addEventListener("click", () => {
   fillProfileInputs();
   openPopup(popupEditProfile);
-  activeButtonClasses.forEach((activeButtonClass) =>
-    enableButton(activeButtonClass, { inactiveButtonClass })
-  );
+  enableButton(buttonFormProfile, { inactiveButtonClass });
+  disableValidation(popupEditProfile);
 });
+
+const resetForm = (popup) => {
+  const form = popup.querySelector(".form");
+  form.reset();
+};
 
 // слушатель кнопки открытия попапа редактирования карточки //
 
 addButton.addEventListener("click", () => {
   openPopup(popupAddCard);
-  activeButtonClasses.forEach((activeButtonClass) =>
-    disableButton(activeButtonClass, { inactiveButtonClass })
-  );
+  resetForm(popupAddCard);
+  disableButton(buttonFormAddCard, { inactiveButtonClass });
+  disableValidation(popupAddCard);
 });
 
 // универсальная функция закрытия попапа /
 
 const closePopup = (popup) => {
   popup.classList.remove("popup__opened");
-  // при закрытии попапа текст внутри полей карточки сбрасывается;
-  const inputs = [...popup.querySelectorAll('.form__input')];
-  inputs.forEach(input => input.value = '');
-
+  document.removeEventListener("keydown", closePopupByEsc);
 };
 
 // функция закрытия попапа нажатием на ескейп
 
-const closePopupWithKey = (event) => {
-  popups.forEach((popup) => {
-    if (event.key === "Escape") {
-      closePopup(popup);
-    }
-    document.removeEventListener("keydown", closePopupWithKey);
-  });
+const closePopupByEsc = (event) => {
+  if (event.key === "Escape") {
+    const openedPopup = document.querySelector(".popup__opened");
+    closePopup(openedPopup);
+  }
 };
 
 // функция закрытия попапа нажатием на оверлей //
 
-const closePopupWithOverlay = () => {
+const closePopupByOverlay = () => {
   popups.forEach((popup) =>
     popup.addEventListener("mousedown", (event) => {
       if (event.target === event.currentTarget) {
         closePopup(popup);
       }
-      document.removeEventListener("click", closePopupWithOverlay);
     })
   );
 };
@@ -159,7 +127,6 @@ const toggleLike = (event) => {
 // функция создания карточки //
 
 const createCard = ({ name, link }) => {
-  const contentTemplate = document.querySelector(".content__template").content;
   const contentElement = contentTemplate
     .querySelector(".content__card")
     .cloneNode(true);
