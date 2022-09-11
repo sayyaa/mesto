@@ -95,18 +95,16 @@ const setEventListeners = (form, { inputSelector, submitButtonSelector }) => {
 
 const enableValidation = ({ formSelector }) => {
   const forms = [...document.querySelectorAll(formSelector)];
-
   forms.forEach((form) => {
-    form.addEventListener("submit", () => {
-      const fieldsets = [...form.querySelectorAll(".form__set")];
-      fieldsets.forEach((fieldset) =>
-        setEventListeners(fieldset, enableValidationConfig)
-      );
-    });
     setEventListeners(form, enableValidationConfig);
   });
 };
 
-enableValidation(enableValidationConfig);
-
-export { disableButton, enableButton, hideInputError };
+enableValidation({
+  formSelector: ".form",
+  inputSelector: ".form__input",
+  submitButtonSelector: ".form__save-btn",
+  inactiveButtonClass: "form__save-btn_disabled",
+  inputErrorClass: "form__input_type_error",
+  errorClass: "form__input-error_visible",
+});
