@@ -15,21 +15,12 @@ const heroDescription = document.querySelector(".hero__description");
 const popupImage = document.querySelector(".popup__image");
 const popupImageCaption = document.querySelector(".popup__image-caption");
 const content = document.querySelector(".content");
-// const form = document.querySelector('.form');
-// const input = document.querySelectorAll('.form__input');
 const activeButtonClasses = [...document.querySelectorAll(".form__save-btn")];
 const inactiveButtonClass = "form__save-btn_disabled";
 const inputErrorClass = 'form__input_type_error';
 const errorClass = 'form__input-error_visible';
 
 
-
-// const hideInputError = (form, input, {errorClass, inputErrorClass}) => {
-//   const error = form.querySelector(`.${input.id}-error`);
-//   error.classList.remove(errorClass);
-//   input.classList.remove(inputErrorClass);
-//   error.textContent = "";
-// };
 const initialCards = [
   {
     name: "Новотроицк",
@@ -97,6 +88,12 @@ editButton.addEventListener("click", () => {
   );
 });
 
+const clearInputValue = (popup) => {
+  const form = popup.querySelector('.form');
+  const inputs = [...form.querySelectorAll('.form__input')];
+  inputs.forEach(input => input.value = '');
+}
+
 // слушатель кнопки открытия попапа редактирования карточки //
 
 addButton.addEventListener("click", () => {
@@ -104,6 +101,7 @@ addButton.addEventListener("click", () => {
   activeButtonClasses.forEach((activeButtonClass) =>
     disableButton(activeButtonClass, { inactiveButtonClass })
   );
+  clearInputValue(popupAddCard)
 });
 
 // универсальная функция закрытия попапа /
@@ -111,8 +109,6 @@ addButton.addEventListener("click", () => {
 const closePopup = (popup) => {
   popup.classList.remove("popup__opened");
   // при закрытии попапа текст внутри полей карточки сбрасывается;
-  const inputs = [...popup.querySelectorAll('.form__input')];
-  inputs.forEach(input => input.value = '');
 
 };
 
