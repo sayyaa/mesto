@@ -108,8 +108,6 @@ addButton.addEventListener("click", () => {
 
 const closePopup = (popup) => {
   popup.classList.remove("popup__opened");
-  // при закрытии попапа текст внутри полей карточки сбрасывается;
-
 };
 
 // функция закрытия попапа нажатием на ескейп
