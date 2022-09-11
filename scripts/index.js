@@ -1,3 +1,5 @@
+import { disableButton, enableButton, hideInputError } from "./validate.js";
+
 const popups = [...document.querySelectorAll(".popup")];
 const popupEditProfile = document.querySelector(".popup_type_edit-profile");
 const popupAddCard = document.querySelector(".popup_type_add-card");
@@ -5,9 +7,7 @@ const popupOpenPicture = document.querySelector(".popup_type_open-picture");
 const editButton = document.querySelector(".hero__edit");
 const addButton = document.querySelector(".hero__add");
 const inputName = document.querySelector(".form__input_text_name");
-const inputDescription = document.querySelector(
-  ".form__input_text_occupation"
-);
+const inputDescription = document.querySelector(".form__input_text_occupation");
 const inputCity = document.querySelector(".form__input_text_city");
 const inputLink = document.querySelector(".form__input_text_link");
 const heroName = document.querySelector(".hero__name");
@@ -15,7 +15,21 @@ const heroDescription = document.querySelector(".hero__description");
 const popupImage = document.querySelector(".popup__image");
 const popupImageCaption = document.querySelector(".popup__image-caption");
 const content = document.querySelector(".content");
+// const form = document.querySelector('.form');
+// const input = document.querySelectorAll('.form__input');
+const activeButtonClasses = [...document.querySelectorAll(".form__save-btn")];
+const inactiveButtonClass = "form__save-btn_disabled";
+const inputErrorClass = 'form__input_type_error';
+const errorClass = 'form__input-error_visible';
 
+
+
+// const hideInputError = (form, input, {errorClass, inputErrorClass}) => {
+//   const error = form.querySelector(`.${input.id}-error`);
+//   error.classList.remove(errorClass);
+//   input.classList.remove(inputErrorClass);
+//   error.textContent = "";
+// };
 const initialCards = [
   {
     name: "Новотроицк",
@@ -43,7 +57,6 @@ const initialCards = [
   },
 ];
 
-
 // функия изменения профиля из формы //
 
 const changeProfile = (event) => {
@@ -64,8 +77,14 @@ const fillProfileInputs = () => {
 
 const openPopup = (popup) => {
   popup.classList.add("popup__opened");
-  document.addEventListener('keydown', closePopupWithKey);
-  document.addEventListener('click', closePopupWithOverlay);
+  document.addEventListener("keydown", closePopupWithKey);
+  document.addEventListener("click", closePopupWithOverlay);
+
+  const form = popup.querySelector('.form');
+  const inputs = [...form.querySelectorAll('.form__input')];
+  inputs.forEach(input => {
+    hideInputError(form, input, {errorClass, inputErrorClass});
+  })
 };
 
 // слушатель кнопки открытия попапа профиля и заполнение формы //
@@ -73,59 +92,55 @@ const openPopup = (popup) => {
 editButton.addEventListener("click", () => {
   fillProfileInputs();
   openPopup(popupEditProfile);
+  activeButtonClasses.forEach((activeButtonClass) =>
+    enableButton(activeButtonClass, { inactiveButtonClass })
+  );
 });
 
 // слушатель кнопки открытия попапа редактирования карточки //
 
 addButton.addEventListener("click", () => {
   openPopup(popupAddCard);
+  activeButtonClasses.forEach((activeButtonClass) =>
+    disableButton(activeButtonClass, { inactiveButtonClass })
+  );
 });
 
 // универсальная функция закрытия попапа /
 
 const closePopup = (popup) => {
   popup.classList.remove("popup__opened");
+  // при закрытии попапа текст внутри полей карточки сбрасывается;
+  const inputs = [...popup.querySelectorAll('.form__input')];
+  inputs.forEach(input => input.value = '');
+
 };
 
 // функция закрытия попапа нажатием на ескейп
 
 const closePopupWithKey = (event) => {
-    popups.forEach(popup => {
-    if (event.key === 'Escape') {
-      closePopup(popup)
+  popups.forEach((popup) => {
+    if (event.key === "Escape") {
+      closePopup(popup);
     }
-    document.removeEventListener('keydown', closePopupWithKey)
-  })
-}
+    document.removeEventListener("keydown", closePopupWithKey);
+  });
+};
 
-// функция закрытия попапа нажатием на оверлей
+// функция закрытия попапа нажатием на оверлей //
 
 const closePopupWithOverlay = () => {
   popups.forEach((popup) =>
-  popup.addEventListener("mousedown", (event) => {
-    if (event.target === event.currentTarget) {
-      closePopup(popup);
-    }
-    document.removeEventListener('click', closePopupWithOverlay);
-  })
-);
-}
+    popup.addEventListener("mousedown", (event) => {
+      if (event.target === event.currentTarget) {
+        closePopup(popup);
+      }
+      document.removeEventListener("click", closePopupWithOverlay);
+    })
+  );
+};
 
-
-
-
-
-
-// popups.forEach((popup) =>
-//   popup.addEventListener("click", (evt) => {
-//     console.log(evt)
-//       console.log(evt.target)
-//       console.log(evt.currentTarget)
-//   }))
-
-
-
-// слушатель коллекции попап элементов, логика закрывающая попапы //
+// слушатель коллекции попап элементов //
 
 popups.forEach((popup) =>
   popup.addEventListener("click", (event) => {
@@ -158,29 +173,29 @@ const createCard = ({ name, link }) => {
 
   // удаление карточки
 
-  const contentBin = contentElement.querySelector('.content__bin');
+  const contentBin = contentElement.querySelector(".content__bin");
 
   contentBin.addEventListener("click", () => {
-      contentElement.remove();
+    contentElement.remove();
   });
 
   // лайк карточке
 
-  const contentLike = contentElement.querySelector('.content__like');
+  const contentLike = contentElement.querySelector(".content__like");
 
-  contentLike.addEventListener('click', (event) => {
+  contentLike.addEventListener("click", (event) => {
     toggleLike(event);
-  })
+  });
 
   // открытие попапа изображения
 
-  contentImage.addEventListener('click', (event) => {
+  contentImage.addEventListener("click", (event) => {
     popupImage.src = link;
     popupImage.alt = name;
     popupImageCaption.textContent = name;
 
     openPopup(popupOpenPicture);
-  })
+  });
 
   return contentElement;
 };
