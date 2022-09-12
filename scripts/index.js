@@ -1,24 +1,44 @@
+// Массив попапов
+
 const popups = [...document.querySelectorAll(".popup")];
+
+// Отдельные попапы
+
 const popupEditProfile = document.querySelector(".popup_type_edit-profile");
 const popupAddCard = document.querySelector(".popup_type_add-card");
 const popupOpenPicture = document.querySelector(".popup_type_open-picture");
 
-const editButton = document.querySelector(".hero__edit");
-const addButton = document.querySelector(".hero__add");
+// формы попапов
+
+const formProfile = popupEditProfile.querySelector(".form");
+const formAddCard = popupAddCard.querySelector(".form");
+
+// кнопки
+
+const buttonEditProfile = document.querySelector(".hero__edit");
+const buttonAddCard = document.querySelector(".hero__add");
+const buttonFormProfile = popupEditProfile.querySelector(".form__save-btn");
+const buttonFormAddCard = popupAddCard.querySelector(".form__save-btn");
+
+// поля
+
 const inputName = document.querySelector(".form__input_text_name");
 const inputDescription = document.querySelector(".form__input_text_occupation");
 const inputCity = document.querySelector(".form__input_text_city");
 const inputLink = document.querySelector(".form__input_text_link");
+
+// прочее
+
 const heroName = document.querySelector(".hero__name");
 const heroDescription = document.querySelector(".hero__description");
 const popupImage = document.querySelector(".popup__image");
 const popupImageCaption = document.querySelector(".popup__image-caption");
-const content = document.querySelector(".content");
 
+const content = document.querySelector(".content");
 const contentTemplate = document.querySelector(".content__template").content;
 
-const buttonFormProfile = popupEditProfile.querySelector(".form__save-btn");
-const buttonFormAddCard = popupAddCard.querySelector(".form__save-btn");
+// отдельные селекторы
+
 const inactiveButtonClass = "form__save-btn_disabled";
 const inputErrorClass = "form__input_type_error";
 const errorClass = "form__input-error_visible";
@@ -44,40 +64,24 @@ const fillProfileInputs = () => {
 const openPopup = (popup) => {
   popup.classList.add("popup__opened");
   document.addEventListener("keydown", closePopupByEsc);
-  closePopupByOverlay();
-};
-
-// Функция убирающая ошибку валидации у конкретного попапа
-
-const disableValidation = (popup) => {
-  const form = popup.querySelector(".form");
-  const inputs = [...form.querySelectorAll(".form__input")];
-  inputs.forEach((input) => {
-    hideInputError(form, input, { errorClass, inputErrorClass });
-  });
 };
 
 // слушатель кнопки открытия попапа профиля и заполнение формы //
 
-editButton.addEventListener("click", () => {
+buttonEditProfile.addEventListener("click", () => {
   fillProfileInputs();
   openPopup(popupEditProfile);
-  enableButton(buttonFormProfile, { inactiveButtonClass });
-  disableValidation(popupEditProfile);
+  enableButton(buttonFormProfile, enableValidationConfig);
+  disableValidation(popupEditProfile, enableValidationConfig);
 });
-
-const resetForm = (popup) => {
-  const form = popup.querySelector(".form");
-  form.reset();
-};
 
 // слушатель кнопки открытия попапа редактирования карточки //
 
-addButton.addEventListener("click", () => {
+buttonAddCard.addEventListener("click", () => {
   openPopup(popupAddCard);
-  resetForm(popupAddCard);
-  disableButton(buttonFormAddCard, { inactiveButtonClass });
-  disableValidation(popupAddCard);
+  formAddCard.reset();
+  disableButton(buttonFormAddCard, enableValidationConfig);
+  disableValidation(popupAddCard, enableValidationConfig);
 });
 
 // универсальная функция закрытия попапа /
@@ -96,23 +100,14 @@ const closePopupByEsc = (event) => {
   }
 };
 
-// функция закрытия попапа нажатием на оверлей //
-
-const closePopupByOverlay = () => {
-  popups.forEach((popup) =>
-    popup.addEventListener("mousedown", (event) => {
-      if (event.target === event.currentTarget) {
-        closePopup(popup);
-      }
-    })
-  );
-};
-
-// слушатель коллекции попап элементов //
+// обработчик закрывающий попапы нажатием на оверлей и крестик //
 
 popups.forEach((popup) =>
-  popup.addEventListener("click", (event) => {
-    if (event.target.classList.contains("popup__close-btn")) {
+  popup.addEventListener("mousedown", (event) => {
+    if (
+      event.target === event.currentTarget ||
+      event.target.classList.contains("popup__close-btn")
+    ) {
       closePopup(popup);
     }
   })
@@ -189,5 +184,5 @@ const handleCardFormSubmit = (event) => {
   event.target.reset();
 };
 
-popupEditProfile.addEventListener("submit", changeProfile);
-popupAddCard.addEventListener("submit", handleCardFormSubmit);
+formProfile.addEventListener("submit", changeProfile);
+formAddCard.addEventListener("submit", handleCardFormSubmit);
