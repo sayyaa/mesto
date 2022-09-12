@@ -9,24 +9,19 @@ const enableValidationConfig = {
 
 // функция, показывающая сообщение об ошибке, когда поле становится не валидным
 
-const showInputError = (
-  form,
-  input,
-  errorMessage,
-  { errorClass, inputErrorClass }
-) => {
+const showInputError = (form, input, errorMessage, obj) => {
   const error = form.querySelector(`.${input.id}-error`);
   error.textContent = errorMessage;
-  error.classList.add(errorClass);
-  input.classList.add(inputErrorClass);
+  error.classList.add(obj.errorClass);
+  input.classList.add(obj.inputErrorClass);
 };
 
 // функция, скрывающая сообщение об ошибке, когда поле становится валидным
 
-const hideInputError = (form, input, { errorClass, inputErrorClass }) => {
+const hideInputError = (form, input, obj) => {
   const error = form.querySelector(`.${input.id}-error`);
-  error.classList.remove(errorClass);
-  input.classList.remove(inputErrorClass);
+  error.classList.remove(obj.errorClass);
+  input.classList.remove(obj.inputErrorClass);
   error.textContent = "";
 };
 
@@ -47,15 +42,15 @@ const checkInputValidity = (form, input) => {
 
 // функция выключения кнопки
 
-const disableButton = (button, { inactiveButtonClass }) => {
-  button.classList.add(inactiveButtonClass);
+const disableButton = (button, obj) => {
+  button.classList.add(obj.inactiveButtonClass);
   button.setAttribute("disabled", true);
 };
 
 // функция включения кнопки
 
-const enableButton = (button, { inactiveButtonClass }) => {
-  button.classList.remove(inactiveButtonClass);
+const enableButton = (button, obj) => {
+  button.classList.remove(obj.inactiveButtonClass);
   button.removeAttribute("disabled", false);
 };
 
@@ -77,9 +72,9 @@ const toggleButtonState = (inputs, button) => {
 
 // функция устанавливающая обработчик на поля
 
-const setEventListeners = (form, { inputSelector, submitButtonSelector }) => {
-  const inputs = [...form.querySelectorAll(inputSelector)];
-  const button = form.querySelector(submitButtonSelector);
+const setEventListeners = (form, obj) => {
+  const inputs = [...form.querySelectorAll(obj.inputSelector)];
+  const button = form.querySelector(obj.submitButtonSelector);
 
   toggleButtonState(inputs, button);
 
@@ -93,18 +88,39 @@ const setEventListeners = (form, { inputSelector, submitButtonSelector }) => {
 
 // функция, запускающая валидацию
 
-const enableValidation = ({ formSelector }) => {
-  const forms = [...document.querySelectorAll(formSelector)];
+const enableValidation = (obj) => {
+  const forms = [...document.querySelectorAll(obj.formSelector)];
   forms.forEach((form) => {
-    setEventListeners(form, enableValidationConfig);
+    setEventListeners(form, obj);
   });
 };
 
-enableValidation({
-  formSelector: ".form",
-  inputSelector: ".form__input",
-  submitButtonSelector: ".form__save-btn",
-  inactiveButtonClass: "form__save-btn_disabled",
-  inputErrorClass: "form__input_type_error",
-  errorClass: "form__input-error_visible",
-});
+// Функция убирающая ошибку валидации у конкретного попапа
+
+// const disableValidation = (popup) => {
+//   const form = popup.querySelector(".form");
+//   const inputs = [...form.querySelectorAll(".form__input")];
+//   inputs.forEach((input) => {
+//     hideInputError(form, input, { errorClass, inputErrorClass });
+//   });
+// };
+
+// const disableValidation = (popup, obj) => {
+//   const form = popup.querySelector(obj.form);
+//   console.log(form)
+//   const inputs = [...form.querySelectorAll(obj.inputSelector)];
+//   console.log(inputs)
+//   inputs.forEach((input) => {
+//     hideInputError(form, input, obj);
+//   });
+// };
+
+const disableValidation = (popup, obj) => {
+  const form = popup.querySelector(obj.formSelector);
+  const inputs = [...form.querySelectorAll(obj.inputSelector)];
+  inputs.forEach((input) => {
+    hideInputError(form, input, obj);
+  });
+};
+
+enableValidation(enableValidationConfig);
