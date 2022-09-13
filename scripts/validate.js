@@ -62,11 +62,11 @@ const hasInvalidInput = (inputs) => {
 
 // функция делающая кнопку неактивной если поле невалидно
 
-const toggleButtonState = (inputs, button) => {
+const toggleButtonState = (inputs, button, obj) => {
   if (hasInvalidInput(inputs)) {
-    disableButton(button, enableValidationConfig);
+    disableButton(button, obj);
   } else {
-    enableButton(button, enableValidationConfig);
+    enableButton(button, obj);
   }
 };
 
@@ -76,12 +76,12 @@ const setEventListeners = (form, obj) => {
   const inputs = [...form.querySelectorAll(obj.inputSelector)];
   const button = form.querySelector(obj.submitButtonSelector);
 
-  toggleButtonState(inputs, button);
+  toggleButtonState(inputs, button, obj);
 
   inputs.forEach((input) => {
     input.addEventListener("input", () => {
       checkInputValidity(form, input);
-      toggleButtonState(inputs, button);
+      toggleButtonState(inputs, button, obj);
     });
   });
 };
@@ -96,24 +96,6 @@ const enableValidation = (obj) => {
 };
 
 // Функция убирающая ошибку валидации у конкретного попапа
-
-// const disableValidation = (popup) => {
-//   const form = popup.querySelector(".form");
-//   const inputs = [...form.querySelectorAll(".form__input")];
-//   inputs.forEach((input) => {
-//     hideInputError(form, input, { errorClass, inputErrorClass });
-//   });
-// };
-
-// const disableValidation = (popup, obj) => {
-//   const form = popup.querySelector(obj.form);
-//   console.log(form)
-//   const inputs = [...form.querySelectorAll(obj.inputSelector)];
-//   console.log(inputs)
-//   inputs.forEach((input) => {
-//     hideInputError(form, input, obj);
-//   });
-// };
 
 const disableValidation = (popup, obj) => {
   const form = popup.querySelector(obj.formSelector);
