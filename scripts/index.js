@@ -180,8 +180,6 @@ const handleCardFormSubmit = (event) => {
 
   addCard({ name, link });
   closePopup(popupAddCard);
-
-  event.target.reset();
 };
 
 formProfile.addEventListener("submit", changeProfile);
