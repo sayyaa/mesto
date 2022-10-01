@@ -24,3 +24,5 @@ const initialCards = [
     link: "./assets/img/cards/moscow.jpg",
   },
 ];
+
+export default initialCards;

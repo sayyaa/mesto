@@ -1,4 +1,5 @@
-// Массив попапов
+import initialCards from './initialCards.js'
+import Card from './Card.js';
 
 const popups = [...document.querySelectorAll(".popup")];
 
@@ -35,7 +36,7 @@ const popupImage = document.querySelector(".popup__image");
 const popupImageCaption = document.querySelector(".popup__image-caption");
 
 const content = document.querySelector(".content");
-const contentTemplate = document.querySelector(".content__template").content;
+
 
 // отдельные селекторы
 
@@ -113,74 +114,45 @@ popups.forEach((popup) =>
   })
 );
 
-// функция переключающая состояния лайков //
 
-const toggleLike = (event) => {
-  event.target.classList.toggle("content__like_active");
-};
+const openImagePopup = (name, link) => {
 
-// функция создания карточки //
-
-const createCard = ({ name, link }) => {
-  const contentElement = contentTemplate
-    .querySelector(".content__card")
-    .cloneNode(true);
-
-  const contentImage = contentElement.querySelector(".content__img");
-  const contentCardName = contentElement.querySelector(".content__card-name");
-
-  contentImage.src = link;
-  contentCardName.textContent = name;
-  contentImage.alt = `Город ${name}`;
-
-  // удаление карточки
-
-  const contentBin = contentElement.querySelector(".content__bin");
-
-  contentBin.addEventListener("click", () => {
-    contentElement.remove();
-  });
-
-  // лайк карточке
-
-  const contentLike = contentElement.querySelector(".content__like");
-
-  contentLike.addEventListener("click", (event) => {
-    toggleLike(event);
-  });
-
-  // открытие попапа изображения
-
-  contentImage.addEventListener("click", (event) => {
     popupImage.src = link;
     popupImage.alt = name;
     popupImageCaption.textContent = name;
 
     openPopup(popupOpenPicture);
-  });
 
-  return contentElement;
-};
+}
 
-// функция добавления карточки //
 
-const addCard = ({ name, link }) => {
-  const cardElement = createCard({ name, link });
-  content.prepend(cardElement);
-};
-
-initialCards.forEach(addCard);
-
-// функция обработчик //
+const addCard = (name, link) => {
+  const card = new Card({ name, link }, '.content__template', openImagePopup);
+  return card.createCard();
+}
 
 const handleCardFormSubmit = (event) => {
   event.preventDefault();
   const name = inputCity.value;
   const link = inputLink.value;
-
-  addCard({ name, link });
+  const card = addCard(name, link)
+  content.prepend(card);
   closePopup(popupAddCard);
 };
 
+initialCards.forEach(initialCard => {
+  const card = addCard(initialCard.name, initialCard.link, '.content__template', openImagePopup);
+  content.append(card);
+});
+
+addCard()
+
+
 formProfile.addEventListener("submit", changeProfile);
 formAddCard.addEventListener("submit", handleCardFormSubmit);
+
+
+
+
+
+
