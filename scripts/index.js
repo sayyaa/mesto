@@ -1,5 +1,9 @@
-import initialCards from './initialCards.js'
+
+import initialCards from './initialCards.js';
+import enableValidationConfig from './enableValidationConfig.js';
 import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+(function() {
 
 const popups = [...document.querySelectorAll(".popup")];
 
@@ -72,8 +76,8 @@ const openPopup = (popup) => {
 buttonEditProfile.addEventListener("click", () => {
   fillProfileInputs();
   openPopup(popupEditProfile);
-  enableButton(buttonFormProfile, enableValidationConfig);
-  disableValidation(popupEditProfile, enableValidationConfig);
+  // editValidation.enableButton(buttonFormProfile, enableValidationConfig);
+  // editValidation.disableValidation(popupEditProfile, enableValidationConfig);
 });
 
 // слушатель кнопки открытия попапа редактирования карточки //
@@ -81,8 +85,8 @@ buttonEditProfile.addEventListener("click", () => {
 buttonAddCard.addEventListener("click", () => {
   openPopup(popupAddCard);
   formAddCard.reset();
-  disableButton(buttonFormAddCard, enableValidationConfig);
-  disableValidation(popupAddCard, enableValidationConfig);
+  // addCardValidation.disableButton(buttonFormAddCard, enableValidationConfig);
+  // addCardValidation.disableValidation(popupAddCard, enableValidationConfig);
 });
 
 // универсальная функция закрытия попапа /
@@ -147,11 +151,16 @@ initialCards.forEach(initialCard => {
 
 addCard()
 
-
 formProfile.addEventListener("submit", changeProfile);
 formAddCard.addEventListener("submit", handleCardFormSubmit);
 
+const editValidation = new FormValidator(enableValidationConfig, formProfile)
+const addCardValidation = new FormValidator(enableValidationConfig, formAddCard)
+editValidation.enableValidation();
+addCardValidation.enableValidation();
 
+
+})()
 
 
 

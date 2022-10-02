@@ -1,5 +1,4 @@
 class Card {
-  // static contentTemplate = document.querySelector(".content__template").content;
 
   constructor(data, templateSelector, openImagePopup) {
     this._name = data.name;
