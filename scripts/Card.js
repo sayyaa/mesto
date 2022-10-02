@@ -1,5 +1,4 @@
 class Card {
-
   constructor(data, templateSelector, openImagePopup) {
     this._name = data.name;
     this._link = data.link;
@@ -10,8 +9,7 @@ class Card {
   _getTemplate() {
     const contentElement = document
       .querySelector(this._templateSelector)
-      .content
-      .querySelector(".content__card")
+      .content.querySelector(".content__card")
       .cloneNode(true);
 
     return contentElement;

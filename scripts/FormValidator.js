@@ -1,5 +1,4 @@
 class FormValidator {
-
   constructor(obj, form) {
     this._obj = obj;
     this._form = form;
@@ -9,7 +8,7 @@ class FormValidator {
 
   _findVariableError(input) {
     const error = this._form.querySelector(`.${input.id}-error`);
-    return error
+    return error;
   }
 
   _showInputError(input, errorMessage) {
@@ -30,27 +29,10 @@ class FormValidator {
 
   _checkInputValidity(input) {
     if (!input.validity.valid) {
-      this._showInputError(
-        input,
-        input.validationMessage
-      );
+      this._showInputError(input, input.validationMessage);
     } else {
       this._hideInputError(input);
     }
-  }
-
-  // функция выключения кнопки
-
-  disableButton(button) {
-    button.classList.add(this._obj.inactiveButtonClass);
-    button.setAttribute("disabled", true);
-  }
-
-  // функция включения кнопки
-
-  enableButton(button) {
-    button.classList.remove(this._obj.inactiveButtonClass);
-    button.removeAttribute("disabled", false);
   }
 
   // функция, проверяющая есть ли поле не прошедшее валидацию, если возратит true значит невалид
@@ -63,14 +45,16 @@ class FormValidator {
 
   _toggleButtonState = (inputs, button) => {
     if (this._hasInvalidInput(inputs)) {
-      this.disableButton(button);
+      button.classList.add(this._obj.inactiveButtonClass);
+      button.setAttribute("disabled", true);
     } else {
-      this.enableButton(button);
+      button.classList.remove(this._obj.inactiveButtonClass);
+      button.removeAttribute("disabled", false);
     }
   };
   // функция устанавливающая обработчик на поля
 
-  _setEventListeners() {
+  enableValidation() {
     const inputs = [...this._form.querySelectorAll(this._obj.inputSelector)];
     const button = this._form.querySelector(this._obj.submitButtonSelector);
 
@@ -84,20 +68,15 @@ class FormValidator {
     });
   }
 
-  enableValidation() {
-    const forms = [...document.querySelectorAll(this._obj.formSelector)];
-    forms.forEach(() => {
-      this._setEventListeners();
-    });
-
-
-  }
-
   disableValidation() {
     const inputs = [...this._form.querySelectorAll(this._obj.inputSelector)];
+    const button = this._form.querySelector(this._obj.submitButtonSelector);
+
     inputs.forEach((input) => {
       this._hideInputError(input);
     });
+
+    this._toggleButtonState(inputs, button);
   }
 }
 
