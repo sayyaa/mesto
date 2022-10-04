@@ -2,6 +2,7 @@ import initialCards from "./initialCards.js";
 import enableValidationConfig from "./enableValidationConfig.js";
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
+
 (function () {
   const popups = [...document.querySelectorAll(".popup")];
 
@@ -40,6 +41,12 @@ import FormValidator from "./FormValidator.js";
   const popupImageCaption = document.querySelector(".popup__image-caption");
 
   const content = document.querySelector(".content");
+  const templateSelector = document.querySelector('.content__template');
+  const contentImage = templateSelector
+  .content.querySelector(".content__card")
+  .cloneNode(true)
+  .querySelector(".content__img");
+
 
   // отдельные селекторы
 
