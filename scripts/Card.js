@@ -58,6 +58,12 @@ class Card {
       this._openImagePopup(this._name, this._link);
     });
   }
+
+  // добавляет карточку через форму
+
+  handleCardFormSubmit() {
+    // ?????????????????///
+  }
 }
 
 export default Card;

@@ -2,6 +2,7 @@ import initialCards from "./initialCards.js";
 import enableValidationConfig from "./enableValidationConfig.js";
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
+import Section from "./Section.js";
 
 (function () {
   const popups = [...document.querySelectorAll(".popup")];
@@ -130,31 +131,46 @@ import FormValidator from "./FormValidator.js";
     openPopup(popupOpenPicture);
   };
 
-  const addCard = (name, link) => {
-    const card = new Card({ name, link }, ".content__template", openImagePopup);
-    return card.createCard();
-  };
+  // const addCard = (name, link) => {
+  //   const card = new Card({ name, link }, ".content__template", openImagePopup);
+  //   return card.createCard();
+  // };
 
-  const handleCardFormSubmit = (event) => {
-    event.preventDefault();
-    const name = inputCity.value;
-    const link = inputLink.value;
-    const card = addCard(name, link);
-    content.prepend(card);
-    closePopup(popupAddCard);
-  };
+  // const handleCardFormSubmit = (event) => {
+  //   event.preventDefault();
+  //   const name = inputCity.value;
+  //   const link = inputLink.value;
+  //   const card = addCard(name, link);
+  //   content.prepend(card);
+  //   closePopup(popupAddCard);
+  // };
 
-  initialCards.forEach((initialCard) => {
-    const card = addCard(
-      initialCard.name,
-      initialCard.link,
-      ".content__template",
-      openImagePopup
-    );
-    content.append(card);
-  });
+  // const handleCardFormSubmit = new Section
 
-  addCard();
+  // initialCards.forEach((initialCard) => {
+  //   const card = addCard(
+  //     initialCard.name,
+  //     initialCard.link,
+  //     ".content__template",
+  //     openImagePopup
+  //   );
+  //   content.append(card);
+  // });
+
+  const addCardWithSection = new Section({
+      items: initialCards,
+      renderer: (item) => {
+      const card = new Card(item, ".content__template", openImagePopup);
+      const cardElement = card.createCard();
+      addCardWithSection.addItem(cardElement)
+      }
+    }, content)
+
+
+
+addCardWithSection.renderItems()
+
+  // addCard();
 
   formProfile.addEventListener("submit", changeProfile);
   formAddCard.addEventListener("submit", handleCardFormSubmit);
