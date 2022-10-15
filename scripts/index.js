@@ -3,8 +3,9 @@ import enableValidationConfig from "./enableValidationConfig.js";
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 import Section from "./Section.js";
+import Popup from "./Popup.js";
+import PopupWithImage from "./PopupWithImage.js";
 
-(function () {
   const popups = [...document.querySelectorAll(".popup")];
 
   // Отдельные попапы
@@ -38,8 +39,8 @@ import Section from "./Section.js";
 
   const heroName = document.querySelector(".hero__name");
   const heroDescription = document.querySelector(".hero__description");
-  const popupImage = document.querySelector(".popup__image");
-  const popupImageCaption = document.querySelector(".popup__image-caption");
+  export const popupImage = document.querySelector(".popup__image");
+  export const popupImageCaption = document.querySelector(".popup__image-caption");
 
   const content = document.querySelector(".content");
   const templateSelector = document.querySelector('.content__template');
@@ -73,10 +74,10 @@ import Section from "./Section.js";
 
   // универсальная функция открытия попапа //
 
-  const openPopup = (popup) => {
-    popup.classList.add("popup__opened");
-    document.addEventListener("keydown", closePopupByEsc);
-  };
+  // const openPopup = (popup) => {
+  //   popup.classList.add("popup__opened");
+  //   document.addEventListener("keydown", closePopupByEsc);
+  // };
 
   // слушатель кнопки открытия попапа профиля и заполнение формы //
 
@@ -96,40 +97,40 @@ import Section from "./Section.js";
 
   // универсальная функция закрытия попапа /
 
-  const closePopup = (popup) => {
-    popup.classList.remove("popup__opened");
-    document.removeEventListener("keydown", closePopupByEsc);
-  };
+  // const closePopup = (popup) => {
+  //   popup.classList.remove("popup__opened");
+  //   document.removeEventListener("keydown", closePopupByEsc);
+  // };
 
   // функция закрытия попапа нажатием на ескейп
 
-  const closePopupByEsc = (event) => {
-    if (event.key === "Escape") {
-      const openedPopup = document.querySelector(".popup__opened");
-      closePopup(openedPopup);
-    }
-  };
+  // const closePopupByEsc = (event) => {
+  //   if (event.key === "Escape") {
+  //     const openedPopup = document.querySelector(".popup__opened");
+  //     closePopup(openedPopup);
+  //   }
+  // };
 
   // обработчик закрывающий попапы нажатием на оверлей и крестик //
 
-  popups.forEach((popup) =>
-    popup.addEventListener("mousedown", (event) => {
-      if (
-        event.target === event.currentTarget ||
-        event.target.classList.contains("popup__close-btn")
-      ) {
-        closePopup(popup);
-      }
-    })
-  );
+  // popups.forEach((popup) =>
+  //   popup.addEventListener("mousedown", (event) => {
+  //     if (
+  //       event.target === event.currentTarget ||
+  //       event.target.classList.contains("popup__close-btn")
+  //     ) {
+  //       closePopup(popup);
+  //     }
+  //   })
+  // );
 
-  const openImagePopup = (name, link) => {
-    popupImage.src = link;
-    popupImage.alt = name;
-    popupImageCaption.textContent = name;
+  // const openImagePopup = (name, link) => {
+  //   popupImage.src = link;
+  //   popupImage.alt = name;
+  //   popupImageCaption.textContent = name;
 
-    openPopup(popupOpenPicture);
-  };
+  //   openPopup(popupOpenPicture);
+  // };
 
   // const addCard = (name, link) => {
   //   const card = new Card({ name, link }, ".content__template", openImagePopup);
@@ -145,7 +146,6 @@ import Section from "./Section.js";
   //   closePopup(popupAddCard);
   // };
 
-  // const handleCardFormSubmit = new Section
 
   // initialCards.forEach((initialCard) => {
   //   const card = addCard(
@@ -157,23 +157,27 @@ import Section from "./Section.js";
   //   content.append(card);
   // });
 
+  const popupWithImage = new PopupWithImage(popupImage);
+
   const addCardWithSection = new Section({
       items: initialCards,
       renderer: (item) => {
-      const card = new Card(item, ".content__template", openImagePopup);
+      const card = new Card(item, ".content__template", popupWithImage.open.bind(popupWithImage));
       const cardElement = card.createCard();
       addCardWithSection.addItem(cardElement)
       }
     }, content)
 
+    addCardWithSection.renderItems();
+    popupWithImage.setEventListeners();
 
 
-addCardWithSection.renderItems()
+
 
   // addCard();
 
   formProfile.addEventListener("submit", changeProfile);
-  formAddCard.addEventListener("submit", handleCardFormSubmit);
+  // formAddCard.addEventListener("submit", handleCardFormSubmit);
 
   const editValidation = new FormValidator(enableValidationConfig, formProfile);
   const addCardValidation = new FormValidator(
@@ -182,4 +186,4 @@ addCardWithSection.renderItems()
   );
   editValidation.enableValidation();
   addCardValidation.enableValidation();
-})();
+
