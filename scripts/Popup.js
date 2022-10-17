@@ -4,16 +4,16 @@ class Popup {
   }
 
   open() {
-    this._popupSelector.classList.add("popup__opened");
-    document.addEventListener("keydown", () => {
-      this._handleEscClose()
+    this._popupSelector.classList.add("popup_opened");
+    document.addEventListener("keydown", (event) => {
+      this._handleEscClose(event)
     });
   }
 
   close() {
-    this._popupSelector.classList.remove("popup__opened");
-    document.removeEventListener("keydown", () => {
-      this._handleEscClose
+    this._popupSelector.classList.remove("popup_opened");
+    document.removeEventListener("keydown", (event) => {
+      this._handleEscClose(event)
     });
   }
 

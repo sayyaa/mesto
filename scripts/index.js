@@ -12,7 +12,7 @@ import PopupWithImage from "./PopupWithImage.js";
 
   const popupEditProfile = document.querySelector(".popup_type_edit-profile");
   const popupAddCard = document.querySelector(".popup_type_add-card");
-  const popupOpenPicture = document.querySelector(".popup_type_open-picture");
+  // const popupOpenPicture = document.querySelector(".popup_type_open-picture");
 
   // формы попапов
 
@@ -39,8 +39,7 @@ import PopupWithImage from "./PopupWithImage.js";
 
   const heroName = document.querySelector(".hero__name");
   const heroDescription = document.querySelector(".hero__description");
-  export const popupImage = document.querySelector(".popup__image");
-  export const popupImageCaption = document.querySelector(".popup__image-caption");
+
 
   const content = document.querySelector(".content");
   const templateSelector = document.querySelector('.content__template');
@@ -156,8 +155,9 @@ import PopupWithImage from "./PopupWithImage.js";
   //   );
   //   content.append(card);
   // });
-
-  const popupWithImage = new PopupWithImage(popupImage);
+  const popupOpenPicture = document.querySelector(".popup_type_open-picture");
+  // const popupWithImage = new PopupWithImage(popupImage);
+  const popupWithImage = new PopupWithImage(popupOpenPicture);
 
   const addCardWithSection = new Section({
       items: initialCards,

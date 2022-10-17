@@ -1,5 +1,7 @@
 import Popup from "./Popup.js";
-import { popupImage, popupImageCaption } from './index.js'
+
+const popupImage = document.querySelector(".popup__image");
+const popupImageCaption = document.querySelector(".popup__image-caption");
 
 class PopupWithImage extends Popup {
   constructor(popupSelector) {
