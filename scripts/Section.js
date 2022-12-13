@@ -1,4 +1,4 @@
-class Section {
+export default class Section {
   constructor({items, renderer}, templateSelector) {
     this._renderedItems = items;
     this._renderer = renderer;
@@ -17,6 +17,3 @@ class Section {
 
 }
 
-export default Section;
-
-/// just branch test

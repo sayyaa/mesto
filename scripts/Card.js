@@ -8,6 +8,8 @@ class Card {
     this._openImagePopup = openImagePopup;
   }
 
+  // получаем готовую разметку, перед размещением на страницу
+
   _getTemplate() {
     const contentElement = document
       .querySelector(this._templateSelector)
@@ -16,6 +18,8 @@ class Card {
 
     return contentElement;
   }
+
+// метод, добавляющий данные в разметку
 
   createCard() {
     this._element = this._getTemplate();
