@@ -5,7 +5,8 @@ import FormValidator from "./FormValidator.js";
 import Section from "./Section.js";
 import Popup from "./Popup.js";
 import PopupWithImage from "./PopupWithImage.js";
-// import PopupWithForm from "./PopupWithForm.js";
+import PopupWithForm from "./PopupWithForm.js";
+import UserInfo from "./UserInfo.js";
 
 (function () {
   const popups = [...document.querySelectorAll(".popup")];
@@ -59,19 +60,19 @@ import PopupWithImage from "./PopupWithImage.js";
 
   // функия изменения профиля из формы //
 
-  const changeProfile = (event) => {
-    event.preventDefault();
-    heroName.textContent = inputName.value;
-    heroDescription.textContent = inputDescription.value;
-    closePopup(popupEditProfile);
-  };
+  // const changeProfile = (event) => {
+  //   event.preventDefault();
+  //   heroName.textContent = inputName.value;
+  //   heroDescription.textContent = inputDescription.value;
+  //   closePopup(popupEditProfile);
+  // };
 
   // функция для заполненных импутов при открытии попапа //
 
-  const fillProfileInputs = () => {
-    inputName.value = heroName.textContent;
-    inputDescription.value = heroDescription.textContent;
-  };
+  // const fillProfileInputs = () => {
+  //   inputName.value = heroName.textContent;
+  //   inputDescription.value = heroDescription.textContent;
+  // };
 
   // универсальная функция открытия попапа //
 
@@ -161,7 +162,7 @@ import PopupWithImage from "./PopupWithImage.js";
 
   // addCard();
 
-  ///////////////////////// pr 8
+  ///////////////////////// pr 9
 
   // открытие попапа при клике на изображение карточки
 
@@ -183,16 +184,49 @@ import PopupWithImage from "./PopupWithImage.js";
   openImagePopup.setEventListeners()
 
 
+ // создаем экземпляр класса UserInfo
+  const userInfo = new UserInfo({ nameSelector: heroName, aboutSelector: heroDescription })
+
+  // создаем экземпляр класса PopupWithForm
+
+  const popupWithProfile = new PopupWithForm(popupEditProfile, { handleFormSubmit: ({ name, about }) => {
+    userInfo.setUserInfo({ name, about });
+
+    popupWithProfile.close()
+  }})
+
+  popupWithProfile.setEventListeners()
+  console.log('Получаемый объект гетюзеринфо',userInfo.getUserInfo())
+  console.log('объект в приватном методе _getInputValues()', popupWithProfile._getInputValues())
+
+
+  const openPopupWithProfile = () => {
+    const data = userInfo.getUserInfo();
+    const { name, about } = data;
+    inputName.value = name;
+    inputDescription.value = about;
+    popupWithProfile.open();
+
+  }
+
 
   // открытие попапа редактирования профиля
 
-  buttonEditProfile.addEventListener("click", () => {
-    fillProfileInputs();
-    const openProfilePopup = new Popup(popupEditProfile);
-    openProfilePopup.setEventListeners();
-    openProfilePopup.open();
-    profileValidation.disableValidation(popupEditProfile, enableValidationConfig);
-  });
+  buttonEditProfile.addEventListener('click', ()=> {
+    console.log(userInfo.getUserInfo())
+    profileValidation.disableValidation(popupEditProfile, enableValidationConfig)
+    openPopupWithProfile()
+  } )
+  // buttonEditProfile.addEventListener("click", () => {
+    // fillProfileInputs();
+    // const openProfilePopup = new Popup(popupEditProfile);
+    // let data = userInfo.getUserInfo();
+    // const {name, about} = data
+    // userInfo.setUserInfo({name, about})
+      // openProfilePopup.setEventListeners();
+      // openProfilePopup.open();
+    // profileValidation.disableValidation(popupEditProfile, enableValidationConfig);
+  // });
 
   // открытие попапа добавляния карточки
 
@@ -207,8 +241,8 @@ import PopupWithImage from "./PopupWithImage.js";
 
 ////////////////////////
 
-  formProfile.addEventListener("submit", changeProfile);
-  formAddCard.addEventListener("submit", handleCardFormSubmit);
+  // formProfile.addEventListener("submit", changeProfile);
+  // formAddCard.addEventListener("submit", handleCardFormSubmit);
 
   const profileValidation = new FormValidator(enableValidationConfig, formProfile);
   const addCardValidation = new FormValidator(

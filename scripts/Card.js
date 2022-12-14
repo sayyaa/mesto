@@ -1,11 +1,11 @@
 class Card {
 
 
-  constructor(data, templateSelector, openImagePopup) {
+  constructor(data, templateSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
-    this._openImagePopup = openImagePopup;
+    this._handleCardClick = handleCardClick;
   }
 
   // получаем готовую разметку, перед размещением на страницу
@@ -59,7 +59,7 @@ class Card {
 
     this._contentImage = this._element.querySelector(".content__img");
     this._contentImage.addEventListener("click", () => {
-      this._openImagePopup(this._name, this._link);
+      this._handleCardClick(this._name, this._link);
     });
   }
 }
