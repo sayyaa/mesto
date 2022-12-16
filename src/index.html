@@ -5,13 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Место</title>
-    <link rel="stylesheet" href="./pages/index.css" />
   </head>
   <body class="mark">
     <header class="header">
       <a href="#"
         ><img
-          src="./assets/svg/logo.svg"
+          src="<%=require('./assets/svg/logo.svg')%>"
           alt="Логотип сайта"
           class="header__logo"
       /></a>
@@ -19,7 +18,7 @@
     <main>
       <section class="hero">
         <img
-          src="./assets/img/avatar.jpg"
+          src="<%=require('./assets/img/avatar.jpg')%>"
           alt="Фотография пользователя"
           class="hero__img"
         />
@@ -60,9 +59,8 @@
             <input
               class="form__input form__input_text_name"
               id="name-input"
-              name="inputChangeName"
+              name="name"
               type="text"
-              value="Жак-Ив Кусто"
               placeholder="Имя"
               minlength="2"
               maxlength="40"
@@ -72,9 +70,8 @@
             <input
               class="form__input form__input_text_occupation"
               id="occupation-input"
-              name="inputChangeOccupation"
+              name="about"
               type="text"
-              value="Исследователь океана"
               placeholder="Чем занимаешься?"
               minlength="2"
               maxlength="200"
@@ -105,7 +102,7 @@
             <input
               class="form__input form__input_text_city"
               id="city-input"
-              name="inputChangeCity"
+              name="name"
               type="text"
               placeholder="Название"
               minlength="2"
@@ -116,7 +113,7 @@
             <input
               class="form__input form__input_text_link"
               id="url-input"
-              name="inputChangeUrl"
+              name="link"
               type="url"
               placeholder="Ссылка на картинку"
               required
@@ -136,7 +133,7 @@
         ></button>
         <figure class="popup__image-wrapper">
           <img
-            src="./assets/img/cards/moscow.jpg"
+            src="<%require('./assets/img/cards/moscow.jpg')%>"
             alt="Москва"
             class="popup__image"
           />
@@ -164,6 +161,5 @@
         </div>
       </article>
     </template>
-    <script type="module" src="./scripts/index.js"></script>
   </body>
 </html>
