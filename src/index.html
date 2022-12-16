@@ -5,13 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Место</title>
-    <link rel="stylesheet" href="./pages/index.css" />
   </head>
   <body class="mark">
     <header class="header">
       <a href="#"
         ><img
-          src="./assets/svg/logo.svg"
+          src="<%=require('./assets/svg/logo.svg')%>"
           alt="Логотип сайта"
           class="header__logo"
       /></a>
@@ -19,7 +18,7 @@
     <main>
       <section class="hero">
         <img
-          src="./assets/img/avatar.jpg"
+          src="<%=require('./assets/img/avatar.jpg')%>"
           alt="Фотография пользователя"
           class="hero__img"
         />
@@ -134,7 +133,7 @@
         ></button>
         <figure class="popup__image-wrapper">
           <img
-            src="./assets/img/cards/moscow.jpg"
+            src="<%require('./assets/img/cards/moscow.jpg')%>"
             alt="Москва"
             class="popup__image"
           />
@@ -162,6 +161,5 @@
         </div>
       </article>
     </template>
-    <script type="module" src="./pages/index.js"></script>
   </body>
 </html>

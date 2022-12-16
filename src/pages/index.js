@@ -1,21 +1,23 @@
+import './index.css' // импорт css стилей для сборки с помощью Webpack
+
 // константы попапов
-import { popupEditProfile, popupAddCard, popupOpenPicture } from "../components/constants.js";
+import { popupEditProfile, popupAddCard, popupOpenPicture } from "../data/constants.js";
 // константы форм
-import { formProfile, formAddCard } from "../components/constants.js";
+import { formProfile, formAddCard } from "../data/constants.js";
 // кнопки
-import { buttonEditProfile, buttonAddCard } from "../components/constants.js";
+import { buttonEditProfile, buttonAddCard } from "../data/constants.js";
 // поля (инпуты) профиля
-import { inputName, inputDescription } from "../components/constants.js";
+import { inputName, inputDescription } from "../data/constants.js";
 // элементы, в которых записаны данные профиля
-import { heroName, heroDescription } from "../components/constants.js";
+import { heroName, heroDescription } from "../data/constants.js";
 // элемент фотографии и подписи к ней в открытом попапе с изображением
-import { popupImage, popupImageCaption } from "../components/constants.js";
+import { popupImage, popupImageCaption } from "../data/constants.js";
 // контейнер для добавления карточек
-import { content } from "../components/constants.js";
+import { content } from "../data/constants.js";
 // массив с данными дефолтных карточек
-import initialCards from "../components/initialCards.js";
+import initialCards from "../data/initialCards.js";
 // объект с селекторами для работы с валидацией
-import enableValidationConfig from "../components/enableValidationConfig.js";
+import enableValidationConfig from "../data/enableValidationConfig.js";
 // класс Card отвечает за рендеринг за наполнение и рендеринг карточки, установки слушателей лайков, удаления и т.п
 import Card from "../components/Card.js";
 // класс FormValidator отвечает установку и проверку валидации полей ввода
