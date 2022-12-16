@@ -53,7 +53,8 @@ class FormValidator {
       this._button.removeAttribute("disabled", false);
     }
   };
-  // метод устанавливающий обработчик на поля
+
+  // метод запускает валидацию в форме
 
   enableValidation() {
 

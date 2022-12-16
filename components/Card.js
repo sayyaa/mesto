@@ -1,12 +1,12 @@
-class Card {
-
-
-  constructor(data, templateSelector, openImagePopup) {
-    this._name = data.name;
-    this._link = data.link;
+export default class Card {
+  constructor({ name, link }, templateSelector, handleCardClick) {
+    this._name = name;
+    this._link = link;
     this._templateSelector = templateSelector;
-    this._openImagePopup = openImagePopup;
+    this._handleCardClick = handleCardClick;
   }
+
+  // получаем готовую разметку, перед размещением на страницу
 
   _getTemplate() {
     const contentElement = document
@@ -16,6 +16,8 @@ class Card {
 
     return contentElement;
   }
+
+  // метод, добавляющий данные в разметку
 
   createCard() {
     this._element = this._getTemplate();
@@ -55,9 +57,7 @@ class Card {
 
     this._contentImage = this._element.querySelector(".content__img");
     this._contentImage.addEventListener("click", () => {
-      this._openImagePopup(this._name, this._link);
+      this._handleCardClick(this._name, this._link);
     });
   }
 }
-
-export default Card;
