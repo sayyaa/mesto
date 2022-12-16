@@ -5,10 +5,9 @@ export default class PopupWithImage extends Popup {
     super(popupElement);
     this._popupImage = popupImage;
     this._popupImageCaption = popupImageCaption;
-
   }
 
-// метод, открывающий попап, перезаписывает метод open() родительского класса Popup:
+  // метод, открывающий попап, перезаписывает метод open() родительского класса Popup:
 
   open(name, link) {
     this._popupImage.src = link;

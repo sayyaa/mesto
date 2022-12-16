@@ -9,7 +9,7 @@ import PopupWithForm from "./PopupWithForm.js";
 import UserInfo from "./UserInfo.js";
 
 (function () {
-  const popups = [...document.querySelectorAll(".popup")];
+  // const popups = [...document.querySelectorAll(".popup")];
 
   // Отдельные попапы
 
@@ -35,8 +35,8 @@ import UserInfo from "./UserInfo.js";
   const inputDescription = document.querySelector(
     ".form__input_text_occupation"
   );
-  const inputCity = document.querySelector(".form__input_text_city");
-  const inputLink = document.querySelector(".form__input_text_link");
+  // const inputCity = document.querySelector(".form__input_text_city");
+  // const inputLink = document.querySelector(".form__input_text_link");
 
   // прочее
 
@@ -46,123 +46,17 @@ import UserInfo from "./UserInfo.js";
   const popupImageCaption = document.querySelector(".popup__image-caption");
 
   const content = document.querySelector(".content");
-  const templateSelector = document.querySelector(".content__template");
-  const contentImage = templateSelector.content
-    .querySelector(".content__card")
-    .cloneNode(true)
-    .querySelector(".content__img");
+  // const templateSelector = document.querySelector(".content__template");
+  // const contentImage = templateSelector.content
+  //   .querySelector(".content__card")
+  //   .cloneNode(true)
+  //   .querySelector(".content__img");
 
   // отдельные селекторы
 
   const inactiveButtonClass = "form__save-btn_disabled";
   const inputErrorClass = "form__input_type_error";
   const errorClass = "form__input-error_visible";
-
-  // функия изменения профиля из формы //
-
-  // const changeProfile = (event) => {
-  //   event.preventDefault();
-  //   heroName.textContent = inputName.value;
-  //   heroDescription.textContent = inputDescription.value;
-  //   closePopup(popupEditProfile);
-  // };
-
-  // функция для заполненных импутов при открытии попапа //
-
-  // const fillProfileInputs = () => {
-  //   inputName.value = heroName.textContent;
-  //   inputDescription.value = heroDescription.textContent;
-  // };
-
-  // универсальная функция открытия попапа //
-
-  // const openPopup = (popup) => {
-  //   popup.classList.add("popup__opened");
-  //   document.addEventListener("keydown", closePopupByEsc);
-  // };
-
-  // слушатель кнопки открытия попапа профиля и заполнение формы //
-
-  // buttonEditProfile.addEventListener("click", () => {
-  //   fillProfileInputs();
-  //   openPopup(popupEditProfile);
-  //   profileValidation.disableValidation(popupEditProfile, enableValidationConfig);
-  // });
-
-  // слушатель кнопки открытия попапа редактирования карточки //
-
-  // buttonAddCard.addEventListener("click", () => {
-  //   openPopup(popupAddCard);
-  //   formAddCard.reset();
-  //   addCardValidation.disableValidation(popupAddCard, enableValidationConfig);
-  // });
-
-
-
-  // универсальная функция закрытия попапа /
-
-  // const closePopup = (popup) => {
-  //   popup.classList.remove("popup__opened");
-  //   document.removeEventListener("keydown", closePopupByEsc);
-  // };
-
-  // функция закрытия попапа нажатием на ескейп
-
-  // const closePopupByEsc = (event) => {
-  //   if (event.key === "Escape") {
-  //     const openedPopup = document.querySelector(".popup__opened");
-  //     closePopup(openedPopup);
-  //   }
-  // };
-
-  // обработчик закрывающий попапы нажатием на оверлей и крестик //
-
-  // popups.forEach((popup) =>
-  //   popup.addEventListener("mousedown", (event) => {
-  //     if (
-  //       event.target === event.currentTarget ||
-  //       event.target.classList.contains("popup__close-btn")
-  //     ) {
-  //       closePopup(popup);
-  //     }
-  //   })
-  // );
-
-  // const openImagePopup = (name, link) => {
-  //   popupImage.src = link;
-  //   popupImage.alt = name;
-  //   popupImageCaption.textContent = name;
-
-  //   openPopup(popupOpenPicture);
-  // };
-
-  // const addCard = (name, link) => {
-  //   const card = new Card({ name, link }, ".content__template", openImagePopup);
-  //   return card.createCard();
-  // };
-
-  // const handleCardFormSubmit = (event) => {
-  //   event.preventDefault();
-  //   const name = inputCity.value;
-  //   const link = inputLink.value;
-  //   const card = addCard(name, link);
-  //   content.prepend(card);
-  //   closePopup(popupAddCard);
-  // };
-
-  // initialCards.forEach((initialCard) => {
-  //   const card = addCard(
-  //     initialCard.name,
-  //     initialCard.link,
-  //     ".content__template",
-  //     openImagePopup
-  //   );
-  //   content.append(card);
-  // });
-
-  // addCard();
-
-  ///////////////////////// pr 8
 
   // открытие попапа при клике на изображение карточки
 
@@ -185,13 +79,15 @@ import UserInfo from "./UserInfo.js";
   openImagePopup.setEventListeners()
 
 
-  // создаем экземпляр класса UserInfo
+  // создаем экземпляр класса UserInfo, передаем селекторы для получения объекта с данными пользователя
+
   const userInfo = new UserInfo({ nameSelector: heroName, aboutSelector: heroDescription })
 
   // создаем экземпляр класса PopupWithForm для попапа профиля
 
   const popupWithProfile = new PopupWithForm(popupEditProfile, {
     handleFormSubmit: ({ name, about }) => {
+      // берем значения input.value и передаем на страницу
       userInfo.setUserInfo({ name, about });
       popupWithProfile.close()
     }
@@ -207,7 +103,10 @@ import UserInfo from "./UserInfo.js";
     popupWithProfile.open();
   }
 
+  // устанавливаем слушатель на попап профиля (отвечает за сабмит формы и закрытие попапа)
+
   popupWithProfile.setEventListeners()
+
 
   // открытие попапа редактирования профиля
 
@@ -217,12 +116,12 @@ import UserInfo from "./UserInfo.js";
   })
 
   // функция, отвечает за создание новой карточки
+
   const handleFormCardSubmit = ({ name, link }) => {
 
     const card = new Card({ name, link }, ".content__template", openImagePopup.open.bind(openImagePopup));
     const cardElement = card.createCard();
     return cardElement;
-    // addCardToPage.addItem(cardElement)
   }
 
   // создаем экземпляр класса PopupWithForm для попапа добавления карточек
@@ -234,11 +133,6 @@ import UserInfo from "./UserInfo.js";
     }
   })
 
-
-
-
-  console.log('popupWithAddCard._getInputValues() : ', popupWithAddCard._getInputValues())
-
   // открытие попапа добавляния карточки
 
   buttonAddCard.addEventListener("click", () => {
@@ -246,27 +140,19 @@ import UserInfo from "./UserInfo.js";
     addCardValidation.disableValidation(popupAddCard, enableValidationConfig);
   });
 
-  popupWithAddCard.setEventListeners()
+  // устанавливаем слушатель на попап профиля (отвечает за сабмит формы и закрытие попапа)
 
-  // buttonAddCard.addEventListener("click", () => {
-  //   const openAddCardPopup = new Popup(popupAddCard);
-  //   openAddCardPopup.setEventListeners();
-  //   openAddCardPopup.open();
-  //   formAddCard.reset();
-  //   addCardValidation.disableValidation(popupAddCard, enableValidationConfig);
-  // });
+  popupWithAddCard.setEventListeners();
 
-
-  ////////////////////////
-
-  // formProfile.addEventListener("submit", changeProfile);
-  // formAddCard.addEventListener("submit", handleCardFormSubmit);
+  // создаем экзепляры класса FormValidator для формы каждого попапа
 
   const profileValidation = new FormValidator(enableValidationConfig, formProfile);
   const addCardValidation = new FormValidator(
     enableValidationConfig,
     formAddCard
   );
+
+  // запускаем валидацию форм
 
   profileValidation.enableValidation();
   addCardValidation.enableValidation();

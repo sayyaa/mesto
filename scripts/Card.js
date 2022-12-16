@@ -1,6 +1,4 @@
-class Card {
-
-
+export default class Card {
   constructor({ name, link }, templateSelector, handleCardClick) {
     this._name = name;
     this._link = link;
@@ -19,7 +17,7 @@ class Card {
     return contentElement;
   }
 
-// метод, добавляющий данные в разметку
+  // метод, добавляющий данные в разметку
 
   createCard() {
     this._element = this._getTemplate();
@@ -63,5 +61,3 @@ class Card {
     });
   }
 }
-
-export default Card;
