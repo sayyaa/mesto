@@ -1,62 +1,37 @@
-import initialCards from "./initialCards.js";
-import enableValidationConfig from "./enableValidationConfig.js";
-import Card from "./Card.js";
-import FormValidator from "./FormValidator.js";
-import Section from "./Section.js";
-import Popup from "./Popup.js";
-import PopupWithImage from "./PopupWithImage.js";
-import PopupWithForm from "./PopupWithForm.js";
-import UserInfo from "./UserInfo.js";
+// константы попапов
+import { popupEditProfile, popupAddCard, popupOpenPicture } from "../components/constants.js";
+// константы форм
+import { formProfile, formAddCard } from "../components/constants.js";
+// кнопки
+import { buttonEditProfile, buttonAddCard } from "../components/constants.js";
+// поля (инпуты) профиля
+import { inputName, inputDescription } from "../components/constants.js";
+// элементы, в которых записаны данные профиля
+import { heroName, heroDescription } from "../components/constants.js";
+// элемент фотографии и подписи к ней в открытом попапе с изображением
+import { popupImage, popupImageCaption } from "../components/constants.js";
+// контейнер для добавления карточек
+import { content } from "../components/constants.js";
+// массив с данными дефолтных карточек
+import initialCards from "../components/initialCards.js";
+// объект с селекторами для работы с валидацией
+import enableValidationConfig from "../components/enableValidationConfig.js";
+// класс Card отвечает за рендеринг за наполнение и рендеринг карточки, установки слушателей лайков, удаления и т.п
+import Card from "../components/Card.js";
+// класс FormValidator отвечает установку и проверку валидации полей ввода
+import FormValidator from "../components/FormValidator.js";
+// класс Popup является родителем для других попап-классов, открывает, закрывает попапы, устанавливает слушатель на ESC и т.п.
+import Popup from "../components/Popup.js";
+// класс PopupWithImage наследуется от Popup и описывает логику открытия попапа с картинкой
+import PopupWithImage from "../components/PopupWithImage.js";
+// класс PopupWithForm наследуется от Popup и отписывает логику попапов профиля и добавления карточек
+import PopupWithForm from "../components/PopupWithForm.js";
+// класс Section отрисовывает карточки на страницу
+import Section from "../components/Section.js";
+// класс UserInfo отвечает за получение данных пользователя и добавляет новые значения на страницу
+import UserInfo from "../components/UserInfo.js";
 
 (function () {
-  // const popups = [...document.querySelectorAll(".popup")];
-
-  // Отдельные попапы
-
-  const popupEditProfile = document.querySelector(".popup_type_edit-profile");
-  const popupAddCard = document.querySelector(".popup_type_add-card");
-  const popupOpenPicture = document.querySelector(".popup_type_open-picture");
-
-  // формы попапов
-
-  const formProfile = popupEditProfile.querySelector(".form");
-  const formAddCard = popupAddCard.querySelector(".form");
-
-  // кнопки
-
-  const buttonEditProfile = document.querySelector(".hero__edit");
-  const buttonAddCard = document.querySelector(".hero__add");
-  const buttonFormProfile = popupEditProfile.querySelector(".form__save-btn");
-  const buttonFormAddCard = popupAddCard.querySelector(".form__save-btn");
-
-  // поля
-
-  const inputName = document.querySelector(".form__input_text_name");
-  const inputDescription = document.querySelector(
-    ".form__input_text_occupation"
-  );
-  // const inputCity = document.querySelector(".form__input_text_city");
-  // const inputLink = document.querySelector(".form__input_text_link");
-
-  // прочее
-
-  const heroName = document.querySelector(".hero__name");
-  const heroDescription = document.querySelector(".hero__description");
-  const popupImage = document.querySelector(".popup__image");
-  const popupImageCaption = document.querySelector(".popup__image-caption");
-
-  const content = document.querySelector(".content");
-  // const templateSelector = document.querySelector(".content__template");
-  // const contentImage = templateSelector.content
-  //   .querySelector(".content__card")
-  //   .cloneNode(true)
-  //   .querySelector(".content__img");
-
-  // отдельные селекторы
-
-  const inactiveButtonClass = "form__save-btn_disabled";
-  const inputErrorClass = "form__input_type_error";
-  const errorClass = "form__input-error_visible";
 
   // открытие попапа при клике на изображение карточки
 
@@ -96,8 +71,8 @@ import UserInfo from "./UserInfo.js";
   // функция подставляет данные пользователя в форму и открывает ее
 
   const openPopupWithProfile = () => {
-    const data = userInfo.getUserInfo();
-    const { name, about } = data;
+    const objWithProfileData = userInfo.getUserInfo();
+    const { name, about } = objWithProfileData;
     inputName.value = name;
     inputDescription.value = about;
     popupWithProfile.open();
