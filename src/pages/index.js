@@ -39,20 +39,28 @@ import UserInfo from "../components/UserInfo.js";
 
 const openImagePopup = new PopupWithImage(popupOpenPicture, popupImage, popupImageCaption);
 
+
+// функция создания наполненной карточки
+
+const generateCard = (item) => {
+  // создаем экземпляр класса Card для формирования карточки
+  const card = new Card(item, ".content__template", openImagePopup.open.bind(openImagePopup));
+  const cardElement = card.createCard();
+  return cardElement
+}
+
 // создаем экзепляр класса Section для отрисовки карточек на странице
 
 const addCardToPage = new Section({
   items: initialCards, renderer: (item) => {
-    // создаем экземпляр класса Card для формирования карточки
-    const card = new Card(item, ".content__template", openImagePopup.open.bind(openImagePopup));
-    const cardElement = card.createCard();
+    const cardElement = generateCard(item)
     addCardToPage.addItem(cardElement)
   }
 }, content);
 
-// добавляем отрисованную карточку в контейнер на странице
-
+// получаем объект с карточкой (item)
 addCardToPage.renderItems()
+// устанавливаем слушатель на попап
 openImagePopup.setEventListeners()
 
 
@@ -74,7 +82,8 @@ const popupWithProfile = new PopupWithForm(popupEditProfile, {
 
 const openPopupWithProfile = () => {
   //добавляем данные пользователя в форму профиля
-  popupWithProfile.setInputValues(userInfo.getUserInfo())
+  const obj = userInfo.getUserInfo();
+  popupWithProfile.setInputValues(obj)
   //открываем попап формы профиля
   popupWithProfile.open();
 }
@@ -83,28 +92,20 @@ const openPopupWithProfile = () => {
 
 popupWithProfile.setEventListeners()
 
-
 // открытие попапа редактирования профиля
 
 buttonEditProfile.addEventListener('click', () => {
   openPopupWithProfile()
-  profileValidation.resetValidation(popupEditProfile, enableValidationConfig)
+  // сбрасываем валидацию у попапа профиля, чтобы при его открытии кнопка сабмита была активна
+  formValidators['formChangeProfile'].resetValidation();
 })
 
-// функция, отвечает за создание новой карточки
-
-const handleFormCardSubmit = ({ name, link }) => {
-
-  const card = new Card({ name, link }, ".content__template", openImagePopup.open.bind(openImagePopup));
-  const cardElement = card.createCard();
-  return cardElement;
-}
-
-// создаем экземпляр класса PopupWithForm для попапа добавления карточек
+// экземпляр PopupWithForm для попапа с карточками
 
 const popupWithAddCard = new PopupWithForm(popupAddCard, {
-  handleFormSubmit: ({ name, link }) => {
-    content.prepend(handleFormCardSubmit({ name, link }))
+  handleFormSubmit: (item) => {
+    const card = generateCard(item);
+    addCardToPage.addItem(card)
     popupWithAddCard.close()
   }
 })
@@ -113,22 +114,33 @@ const popupWithAddCard = new PopupWithForm(popupAddCard, {
 
 buttonAddCard.addEventListener("click", () => {
   popupWithAddCard.open()
-  addCardValidation.resetValidation(popupAddCard, enableValidationConfig);
+  // сбрасываем валидацию, чтобы при добавлении второй и последуюших карточек кнопка сабмита была неактивной
+  formValidators['formAddCard'].resetValidation();
 });
 
 // устанавливаем слушатель на попап профиля (отвечает за сабмит формы и закрытие попапа)
 
 popupWithAddCard.setEventListeners();
 
-// создаем экзепляры класса FormValidator для формы каждого попапа
+// объект formValidators содержит экземпляры класса FormValidator всех форм на странице
+const formValidators = {};
 
-const profileValidation = new FormValidator(enableValidationConfig, formProfile);
-const addCardValidation = new FormValidator(
-  enableValidationConfig,
-  formAddCard
-);
+// функция enableValidation ищет все формы со страницы, на каждую из них создаем экземпляр класса FormValidator и добавляет в объект formValidators. В данном случаем будет {formChangeProfile: FormValidator, formAddCard: FormValidator}
 
-// запускаем валидацию форм
+const enableValidation = (config) => {
+  const formList = [...document.querySelectorAll(config.formSelector)]
 
-profileValidation.enableValidation();
-addCardValidation.enableValidation();
+  formList.forEach(formElement => {
+    // для каждой формы создаем экземпляр класса (validator)
+    const validator = new FormValidator(config, formElement);
+    // получаем имя каждой формы по ее атрибуту
+    const formName = formElement.getAttribute('name');
+    // записывает имя как ключ в объект, его значением будет экземпляр класса
+    formValidators[formName] = validator;
+    //включаем валидацию
+    validator.enableValidation()
+  });
+};
+
+// передаем объект в функцию и вызываем ее
+enableValidation(enableValidationConfig);

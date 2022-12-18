@@ -24,9 +24,9 @@ export default class PopupWithForm extends Popup {
 
   // дополнительный публичный метод, подставляет данные пользователя в форму
 
-  setInputValues(objWithProfileData) {
+  setInputValues(obj) {
     this._inputList.forEach(input => {
-      input.value = objWithProfileData[input.name]
+      input.value = obj[input.name]
     });
   }
 
