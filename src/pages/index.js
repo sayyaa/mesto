@@ -58,7 +58,7 @@ openImagePopup.setEventListeners()
 
 // создаем экземпляр класса UserInfo, передаем селекторы для получения объекта с данными пользователя
 
-const userInfo = new UserInfo({ nameSelector: heroName, aboutSelector: heroDescription })
+const userInfo = new UserInfo({ nameElement: heroName, aboutElement: heroDescription })
 
 // создаем экземпляр класса PopupWithForm для попапа профиля
 
@@ -73,10 +73,9 @@ const popupWithProfile = new PopupWithForm(popupEditProfile, {
 // функция подставляет данные пользователя в форму и открывает ее
 
 const openPopupWithProfile = () => {
-  const objWithProfileData = userInfo.getUserInfo();
-  const { name, about } = objWithProfileData;
-  inputName.value = name;
-  inputDescription.value = about;
+  //добавляем данные пользователя в форму профиля
+  popupWithProfile.setInputValues(userInfo.getUserInfo())
+  //открываем попап формы профиля
   popupWithProfile.open();
 }
 
@@ -89,7 +88,7 @@ popupWithProfile.setEventListeners()
 
 buttonEditProfile.addEventListener('click', () => {
   openPopupWithProfile()
-  profileValidation.disableValidation(popupEditProfile, enableValidationConfig)
+  profileValidation.resetValidation(popupEditProfile, enableValidationConfig)
 })
 
 // функция, отвечает за создание новой карточки
@@ -114,7 +113,7 @@ const popupWithAddCard = new PopupWithForm(popupAddCard, {
 
 buttonAddCard.addEventListener("click", () => {
   popupWithAddCard.open()
-  addCardValidation.disableValidation(popupAddCard, enableValidationConfig);
+  addCardValidation.resetValidation(popupAddCard, enableValidationConfig);
 });
 
 // устанавливаем слушатель на попап профиля (отвечает за сабмит формы и закрытие попапа)

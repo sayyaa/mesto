@@ -22,6 +22,14 @@ export default class PopupWithForm extends Popup {
     return this._formValues;
   }
 
+  // дополнительный публичный метод, подставляет данные пользователя в форму
+
+  setInputValues(objWithProfileData) {
+    this._inputList.forEach(input => {
+      input.value = objWithProfileData[input.name]
+    });
+  }
+
   // перезаписанный метод добавляет обработчик клика иконке закрытия и обработчик сабмита формы
 
   setEventListeners() {
