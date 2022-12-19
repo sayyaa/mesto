@@ -1,6 +1,7 @@
 export default class Popup {
   constructor(popupElement) {
     this._popupElement = popupElement;
+    this._handleEscClose = this._handleEscClose.bind(this);
   }
 
   // приватный метод, отвечающий за закрытие попапа клавишей ESC:
@@ -19,7 +20,7 @@ export default class Popup {
         event.target === event.currentTarget ||
         event.target.classList.contains("popup__close-btn")
       ) {
-        this.close(event);
+        this.close();
       }
     })
   }
@@ -28,17 +29,13 @@ export default class Popup {
 
   open() {
     this._popupElement.classList.add("popup_opened");
-    document.addEventListener("keydown", (event) => {
-      this._handleEscClose(event)
-    });
+    document.addEventListener("keydown", this._handleEscClose);
   }
 
   // публичный метод, отвечающий за открытие попапа:
 
   close() {
     this._popupElement.classList.remove("popup_opened");
-    document.removeEventListener("keydown", (event) => {
-      this._handleEscClose(event)
-    });
+    document.removeEventListener('keydown', this._handleEscClose);
   }
 }

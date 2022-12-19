@@ -7,29 +7,29 @@ import moscow from '../assets/img/cards/moscow.jpg'
 
 const initialCards = [
   {
-    name: "Новотроицк",
-    link: novotroitsk,
-  },
-  {
-    name: "Оренбург",
-    link: orenburg,
-  },
-  {
-    name: "Уфа",
-    link: ufa,
-  },
-  {
-    name: "Казань",
-    link: kazan,
+    name: "Москва",
+    link: moscow,
   },
   {
     name: "Нижний Новгород",
     link: novgorod,
   },
   {
-    name: "Москва",
-    link: moscow,
+    name: "Казань",
+    link: kazan,
   },
+  {
+    name: "Уфа",
+    link: ufa,
+  },
+  {
+    name: "Оренбург",
+    link: orenburg,
+  },
+  {
+    name: "Новотроицк",
+    link: novotroitsk,
+  }
 ];
 
 export default initialCards;

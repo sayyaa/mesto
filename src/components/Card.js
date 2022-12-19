@@ -17,7 +17,7 @@ export default class Card {
     return contentElement;
   }
 
-  // метод, добавляющий данные в разметку
+  // метод, добавляющий данные в карточку
 
   createCard() {
     this._element = this._getTemplate();
