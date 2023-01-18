@@ -62,19 +62,15 @@ const generateCard = (item) => {
 
 // создаем экзепляр класса Section для отрисовки карточек на странице
 
-const addCardToPage = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      const cardElement = generateCard(item);
-      addCardToPage.addItem(cardElement);
-    },
-  },
+const addCardToPage = new Section(item => {
+  const cardElement = generateCard(item);
+  addCardToPage.addItem(cardElement);
+},
   content
 );
 
 // получаем объект с карточкой (item)
-addCardToPage.renderItems();
+// addCardToPage.renderItems();
 // устанавливаем слушатель на попап
 openImagePopup.setEventListeners();
 
@@ -185,15 +181,15 @@ const api = new Api({
 // });
 
 const popupWithProfile = new PopupWithForm(popupEditProfile, {
-  handleFormSubmit: ({name, about}) => {
-      api.editProfileData({ name, about })
+  handleFormSubmit: ({ name, about }) => {
+    api.editProfileData({ name, about })
       .then(({ name, about }) => {
         userInfo.setUserInfo({ name, about });
         popupWithProfile.close();
       })
       .catch((error) => console.log(error))
-    }
   }
+}
 );
 
 popupWithProfile.setEventListeners()
@@ -207,14 +203,18 @@ const openPopupWithProfile = () => {
 
 
 
-
 api
   .getUserData()
   .then((res) => userInfo.setUserInfo(res))
   .catch((err) => console.log(err));
 
 
-  // api.getInitialCards()
+
+api.getInitialCards().then((cards) => addCardToPage.renderItems(cards))
+
+
+
+api.getInitialCards().then(res => console.log(res))
 // const generateCard = (item) => {
 //   // создаем экземпляр класса Card для формирования карточки
 //   const card = new Card(item, ".content__template", openImagePopup.open.bind(openImagePopup));
