@@ -1,7 +1,11 @@
-import './index.css' // импорт css стилей для сборки с помощью Webpack
+import "./index.css"; // импорт css стилей для сборки с помощью Webpack
 
 // константы попапов
-import { popupEditProfile, popupAddCard, popupOpenPicture } from "../data/constants.js";
+import {
+  popupEditProfile,
+  popupAddCard,
+  popupOpenPicture,
+} from "../data/constants.js";
 // константы форм
 import { formProfile, formAddCard } from "../data/constants.js";
 // кнопки
@@ -32,90 +36,103 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import Section from "../components/Section.js";
 // класс UserInfo отвечает за получение данных пользователя и добавляет новые значения на страницу
 import UserInfo from "../components/UserInfo.js";
-
-
+// класс Api отвечает за получение данных от сервера
+import Api from "../components/Api";
 
 // открытие попапа при клике на изображение карточки
 
-const openImagePopup = new PopupWithImage(popupOpenPicture, popupImage, popupImageCaption);
-
+const openImagePopup = new PopupWithImage(
+  popupOpenPicture,
+  popupImage,
+  popupImageCaption
+);
 
 // функция создания наполненной карточки
 
 const generateCard = (item) => {
   // создаем экземпляр класса Card для формирования карточки
-  const card = new Card(item, ".content__template", openImagePopup.open.bind(openImagePopup));
+  const card = new Card(
+    item,
+    ".content__template",
+    openImagePopup.open.bind(openImagePopup)
+  );
   const cardElement = card.createCard();
-  return cardElement
-}
+  return cardElement;
+};
 
 // создаем экзепляр класса Section для отрисовки карточек на странице
 
-const addCardToPage = new Section({
-  items: initialCards, renderer: (item) => {
-    const cardElement = generateCard(item)
-    addCardToPage.addItem(cardElement)
-  }
-}, content);
+const addCardToPage = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const cardElement = generateCard(item);
+      addCardToPage.addItem(cardElement);
+    },
+  },
+  content
+);
 
 // получаем объект с карточкой (item)
-addCardToPage.renderItems()
+addCardToPage.renderItems();
 // устанавливаем слушатель на попап
-openImagePopup.setEventListeners()
-
+openImagePopup.setEventListeners();
 
 // создаем экземпляр класса UserInfo, передаем селекторы для получения объекта с данными пользователя
 
-const userInfo = new UserInfo({ nameElement: heroName, aboutElement: heroDescription })
+const userInfo = new UserInfo({
+  nameElement: heroName,
+  aboutElement: heroDescription,
+});
 
 // создаем экземпляр класса PopupWithForm для попапа профиля
 
-const popupWithProfile = new PopupWithForm(popupEditProfile, {
-  handleFormSubmit: ({ name, about }) => {
-    // берем значения input.value и передаем на страницу
-    userInfo.setUserInfo({ name, about });
-    popupWithProfile.close()
-  }
-})
+// const popupWithProfile = new PopupWithForm(popupEditProfile, {
+//   handleFormSubmit: ({ name, about }) => {
+//     // берем значения input.value и передаем на страницу
+//     userInfo.setUserInfo({ name, about });
+//     popupWithProfile.close()
+//   }
+// })
 
 // функция подставляет данные пользователя в форму и открывает ее
 
-const openPopupWithProfile = () => {
-  //добавляем данные пользователя в форму профиля
-  const obj = userInfo.getUserInfo();
-  popupWithProfile.setInputValues(obj)
-  //открываем попап формы профиля
-  popupWithProfile.open();
-}
+// const openPopupWithProfile = () => {
+//   //добавляем данные пользователя в форму профиля
+//   const obj = userInfo.getUserInfo();
+//   popupWithProfile.setInputValues(obj)
+//   //открываем попап формы профиля
+//   popupWithProfile.open();
+// }
 
 // устанавливаем слушатель на попап профиля (отвечает за сабмит формы и закрытие попапа)
 
-popupWithProfile.setEventListeners()
+// popupWithProfile.setEventListeners()
 
 // открытие попапа редактирования профиля
 
-buttonEditProfile.addEventListener('click', () => {
-  openPopupWithProfile()
+buttonEditProfile.addEventListener("click", () => {
+  openPopupWithProfile();
   // сбрасываем валидацию у попапа профиля, чтобы при его открытии кнопка сабмита была активна
-  formValidators['formChangeProfile'].resetValidation();
-})
+  formValidators["formChangeProfile"].resetValidation();
+});
 
 // экземпляр PopupWithForm для попапа с карточками
 
 const popupWithAddCard = new PopupWithForm(popupAddCard, {
   handleFormSubmit: (item) => {
     const card = generateCard(item);
-    addCardToPage.addItem(card)
-    popupWithAddCard.close()
-  }
-})
+    addCardToPage.addItem(card);
+    popupWithAddCard.close();
+  },
+});
 
 // открытие попапа добавляния карточки
 
 buttonAddCard.addEventListener("click", () => {
-  popupWithAddCard.open()
+  popupWithAddCard.open();
   // сбрасываем валидацию, чтобы при добавлении второй и последуюших карточек кнопка сабмита была неактивной
-  formValidators['formAddCard'].resetValidation();
+  formValidators["formAddCard"].resetValidation();
 });
 
 // устанавливаем слушатель на попап профиля (отвечает за сабмит формы и закрытие попапа)
@@ -128,19 +145,98 @@ const formValidators = {};
 // функция enableValidation ищет все формы со страницы, на каждую из них создаем экземпляр класса FormValidator и добавляет в объект formValidators. В данном случаем будет {formChangeProfile: FormValidator, formAddCard: FormValidator}
 
 const enableValidation = (config) => {
-  const formList = [...document.querySelectorAll(config.formSelector)]
+  const formList = [...document.querySelectorAll(config.formSelector)];
 
-  formList.forEach(formElement => {
+  formList.forEach((formElement) => {
     // для каждой формы создаем экземпляр класса (validator)
     const validator = new FormValidator(config, formElement);
     // получаем имя каждой формы по ее атрибуту
-    const formName = formElement.getAttribute('name');
+    const formName = formElement.getAttribute("name");
     // записывает имя как ключ в объект, его значением будет экземпляр класса
     formValidators[formName] = validator;
     //включаем валидацию
-    validator.enableValidation()
+    validator.enableValidation();
   });
 };
 
 // передаем объект в функцию и вызываем ее
 enableValidation(enableValidationConfig);
+
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-57",
+  headers: {
+    authorization: "92fe6ed7-0e7c-46b8-933e-0c04fe04b6bf",
+    "Content-Type": "application/json",
+  },
+});
+// const userInfo = new UserInfo({ nameElement: heroName, aboutElement: heroDescription })
+
+// Promise.resolve(api.getUserData()).then(res => console.log(res)).catch(err => console.log(err))
+
+// const popupWithProfile = new PopupWithForm(popupEditProfile, {
+//   handleFormSubmit: ({ name, about }) => {
+//     api.editeProfileData({ name, about })
+//       .then(({ name, about }) => {
+//         userInfo.setUserInfo({ name, about });
+//         popupWithProfile.close();
+//       })
+//       .catch((err) => console.log(err));
+//   },
+// });
+
+const popupWithProfile = new PopupWithForm(popupEditProfile, {
+  handleFormSubmit: ({name, about}) => {
+      api.editProfileData({ name, about })
+      .then(({ name, about }) => {
+        userInfo.setUserInfo({ name, about });
+        popupWithProfile.close();
+      })
+      .catch((error) => console.log(error))
+    }
+  }
+);
+
+popupWithProfile.setEventListeners()
+const openPopupWithProfile = () => {
+  //добавляем данные пользователя в форму профиля
+  const obj = userInfo.getUserInfo();
+  popupWithProfile.setInputValues(obj);
+  //открываем попап формы профиля
+  popupWithProfile.open();
+};
+
+
+
+
+api
+  .getUserData()
+  .then((res) => userInfo.setUserInfo(res))
+  .catch((err) => console.log(err));
+
+
+  // api.getInitialCards()
+// const generateCard = (item) => {
+//   // создаем экземпляр класса Card для формирования карточки
+//   const card = new Card(item, ".content__template", openImagePopup.open.bind(openImagePopup));
+//   const cardElement = card.createCard();
+//   return cardElement
+// }
+
+// // создаем экзепляр класса Section для отрисовки карточек на странице
+
+// const addCardToPage = new Section({
+//   items: initialCards, renderer: (item) => {
+//     const cardElement = generateCard(item)
+//     addCardToPage.addItem(cardElement)
+//   }
+// }, content);
+
+//   .then(console.log(res))
+// const pageData = [api.getUserData(), api.getInitialCards()];
+// Promise.all(pageData)
+//   then()
+
+// console.log(api.getUserData())
+// console.log(api.getInitisalCards().then(res => console.log(res)))
+// console.log(api.editeProfileData({name: 'fedor', about: 'kurlik'}))
+// console.log(api.addNewCard({name: 'site', link: 'http://www.kurlik.ru'}))
