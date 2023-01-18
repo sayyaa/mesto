@@ -203,38 +203,15 @@ const openPopupWithProfile = () => {
 
 
 
-api
-  .getUserData()
-  .then((res) => userInfo.setUserInfo(res))
-  .catch((err) => console.log(err));
+
+const profileAndCardsData = [api.getUserData(), api.getInitialCards()];
+Promise.all(profileAndCardsData)
+  .then(([profileData, cardsData]) => {
+    userInfo.setUserInfo(profileData);
+    addCardToPage.renderItems(cardsData)
+  }).catch(err => console.log(err))
 
 
-
-api.getInitialCards().then((cards) => addCardToPage.renderItems(cards))
-
-
-
-api.getInitialCards().then(res => console.log(res))
-// const generateCard = (item) => {
-//   // создаем экземпляр класса Card для формирования карточки
-//   const card = new Card(item, ".content__template", openImagePopup.open.bind(openImagePopup));
-//   const cardElement = card.createCard();
-//   return cardElement
-// }
-
-// // создаем экзепляр класса Section для отрисовки карточек на странице
-
-// const addCardToPage = new Section({
-//   items: initialCards, renderer: (item) => {
-//     const cardElement = generateCard(item)
-//     addCardToPage.addItem(cardElement)
-//   }
-// }, content);
-
-//   .then(console.log(res))
-// const pageData = [api.getUserData(), api.getInitialCards()];
-// Promise.all(pageData)
-//   then()
 
 // console.log(api.getUserData())
 // console.log(api.getInitisalCards().then(res => console.log(res)))
