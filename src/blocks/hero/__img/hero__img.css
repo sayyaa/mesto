@@ -3,12 +3,4 @@
   min-height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 23px;
-}
-
-@media screen and (min-width: 1280px) {
-  .hero__img {
-    margin-right: 30px;
-    margin-bottom: 0;
-  }
 }

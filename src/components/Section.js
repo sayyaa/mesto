@@ -1,8 +1,8 @@
 export default class Section {
-  constructor(renderer, container) {
-    // this._renderedItems = items;
+  constructor(renderer, container, avatarLink) {
     this._renderer = renderer;
     this._container = container;
+    this._avatarLink = avatarLink;
   }
 
   renderItems(items) {

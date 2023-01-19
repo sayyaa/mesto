@@ -1,7 +1,8 @@
 export default class UserInfo {
-  constructor({ nameElement, aboutElement }) {
+  constructor({ nameElement, aboutElement, avatarElement }) {
     this._nameElement = nameElement;
     this._aboutElement = aboutElement;
+    this._avatarElement = avatarElement;
   }
   // возвращает объект с данными пользователя. Этот метод пригодится когда данные пользователя нужно будет подставить в форму при открытии.
 
@@ -17,5 +18,9 @@ export default class UserInfo {
   setUserInfo({ name, about }) {
     this._nameElement.textContent = name;
     this._aboutElement.textContent = about;
+  }
+
+  addAvatar(image) {
+    this._avatarElement.src = image;
   }
 }

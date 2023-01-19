@@ -24,6 +24,7 @@
 /* Hero */
 
 @import url(../blocks/hero/hero.css);
+@import url(../blocks/hero/__profile/hero__profile.css);
 @import url(../blocks/hero/__img/hero__img.css);
 @import url(../blocks/hero/__wrapper/hero__wrapper.css);
 @import url(../blocks/hero/__name/hero__name.css);

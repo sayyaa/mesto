@@ -17,11 +17,13 @@
     </header>
     <main>
       <section class="hero">
+        <div class="hero__profile">
         <img
           src="<%=require('./assets/img/avatar.jpg')%>"
           alt="Фотография пользователя"
           class="hero__img"
         />
+      </div>
         <div class="hero__wrapper">
           <h1 class="hero__name">Дмитрий</h1>
           <button
@@ -124,6 +126,7 @@
         </form>
       </div>
     </div>
+
     <div class="popup popup_type_open-picture">
       <div class="popup__wrapper">
         <button
@@ -141,6 +144,39 @@
         </figure>
       </div>
     </div>
+      <div class="popup popup_type_change-avatar">
+        <div class="popup__container">
+          <h2 class="popup__title">Обновить аватар</h2>
+          <button
+            class="popup__close-btn button"
+            type="button"
+            aria-label="Закрыть окно"
+          ></button>
+          <form
+            class="form form_type_change-avatar"
+            name="formChangeAvatar"
+            novalidate
+          >
+            <fieldset class="form__set">
+              <input
+                class="form__input form__input_avatar-link"
+                id="avatar-input"
+                name="link"
+                type="url"
+                placeholder="Ссылка на изображение"
+                required
+              />
+              <span class="form__input-error avatar-input-error"></span>
+              <button class="form__save-btn button" type="submit">Сохранить</button>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+
+
+
+
+
     <template class="content__template">
       <article class="content__card" aria-label="Карточка Места">
         <img

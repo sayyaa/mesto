@@ -5,15 +5,18 @@ import {
   popupEditProfile,
   popupAddCard,
   popupOpenPicture,
+  popupChangeAvatar,
 } from "../data/constants.js";
 // константы форм
-import { formProfile, formAddCard } from "../data/constants.js";
+import { formProfile, formAddCard, fromChangeAvatar } from "../data/constants.js";
 // кнопки
-import { buttonEditProfile, buttonAddCard } from "../data/constants.js";
+import { buttonEditProfile, buttonAddCard, buttonChangeAvatar } from "../data/constants.js";
 // поля (инпуты) профиля
 import { inputName, inputDescription } from "../data/constants.js";
 // элементы, в которых записаны данные профиля
 import { heroName, heroDescription } from "../data/constants.js";
+// элемент изображения профиля
+import { heroImg } from "../data/constants.js";
 // элемент фотографии и подписи к ней в открытом попапе с изображением
 import { popupImage, popupImageCaption } from "../data/constants.js";
 // контейнер для добавления карточек
@@ -79,6 +82,7 @@ openImagePopup.setEventListeners();
 const userInfo = new UserInfo({
   nameElement: heroName,
   aboutElement: heroDescription,
+  avatarElement: heroImg,
 });
 
 // создаем экземпляр класса PopupWithForm для попапа профиля
@@ -180,6 +184,8 @@ const api = new Api({
 //   },
 // });
 
+// создаем экземпляр класса PopupWithForm для попапа открытия профиля
+
 const popupWithProfile = new PopupWithForm(popupEditProfile, {
   handleFormSubmit: ({ name, about }) => {
     api.editProfileData({ name, about })
@@ -191,8 +197,11 @@ const popupWithProfile = new PopupWithForm(popupEditProfile, {
   }
 }
 );
-
+// устанавливаем обработчик, в том числе для получения параметров колбэка handleFormSubmit
 popupWithProfile.setEventListeners()
+
+// функция открытия попапа профиля и получения данных
+
 const openPopupWithProfile = () => {
   //добавляем данные пользователя в форму профиля
   const obj = userInfo.getUserInfo();
@@ -203,8 +212,10 @@ const openPopupWithProfile = () => {
 
 
 
-
+// массив, где хранятся промисы запросов для профиля и карточек
 const profileAndCardsData = [api.getUserData(), api.getInitialCards()];
+
+// выполнение обоих промисов
 Promise.all(profileAndCardsData)
   .then(([profileData, cardsData]) => {
     userInfo.setUserInfo(profileData);
@@ -217,3 +228,44 @@ Promise.all(profileAndCardsData)
 // console.log(api.getInitisalCards().then(res => console.log(res)))
 // console.log(api.editeProfileData({name: 'fedor', about: 'kurlik'}))
 // console.log(api.addNewCard({name: 'site', link: 'http://www.kurlik.ru'}))
+
+// создаем экземпляр класса PopupWithFor для попапа изменения аватара
+
+const popupWithChangeAvatar = new PopupWithForm(popupChangeAvatar, {
+  handleFormSubmit: (data) => {
+    api.setProfileAvatar(data)
+      .then(() => {
+          userInfo.addAvatar(data.link)
+          popupWithChangeAvatar.close()
+      })
+      .catch(err => console.log(err))
+  }
+});
+
+// слушатель кнопки редактирования аватара
+
+buttonChangeAvatar.addEventListener('click', () => {
+  popupWithChangeAvatar.open();
+  formValidators["formChangeAvatar"].resetValidation();
+})
+
+// установка слушателя, в том числе получение параметра handleFormSubmit
+
+popupWithChangeAvatar.setEventListeners()
+
+
+
+
+
+// const popupWithProfile = new PopupWithForm(popupEditProfile, {
+//   handleFormSubmit: ({ name, about }) => {
+//     api.editProfileData({ name, about })
+//       .then(({ name, about }) => {
+//         userInfo.setUserInfo({ name, about });
+//         popupWithProfile.close();
+//       })
+//       .catch((error) => console.log(error))
+//   }
+// }
+// );
+
