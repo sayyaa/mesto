@@ -1,9 +1,15 @@
 export default class Card {
-  constructor({ name, link }, templateSelector, handleCardClick) {
+  constructor({ name, link, _id, cardId, owner, likes }, templateSelector, handleCardClick, handleLikeClick, handleDeleteIconClick ) {
     this._name = name;
     this._link = link;
+    this._id = _id;
+    this._cardId = cardId;
+    this._owner = owner;
+    this._likes = likes;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._handleLikeClick = handleLikeClick;
+    this._handleDeleteIconClick = handleDeleteIconClick;
   }
 
   // получаем готовую разметку, перед размещением на страницу
@@ -16,6 +22,10 @@ export default class Card {
 
     return contentElement;
   }
+
+  // _checkCardOwner() {
+  //   if(this_owner.this._id !== user.this._id)
+  // }
 
   // метод, добавляющий данные в карточку
 

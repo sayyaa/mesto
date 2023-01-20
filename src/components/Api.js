@@ -61,16 +61,21 @@ export default class Api {
   }
 
 
-  // Добавление новой карточки
-  // addNewCard(data) {
-  //   return fetch(`${this._baseUrl}/cards`, {
-  //     method: 'POST',
-  //     headers: this._headers,
-  //     body: JSON.stringify({
-  //       name: data.name,
-  //       link: data.link })
-  //   }).then(res => res.json())
-  //     .then(res => console.log(res))
+  //Добавление новой карточки
+  addNewCard(data) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: data.name,
+        link: data.link })
+    }).then(res => {
+      if (res.ok) {
+        return res.json()
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+  }
 
 
 

@@ -212,15 +212,6 @@ const openPopupWithProfile = () => {
 
 
 
-// массив, где хранятся промисы запросов для профиля и карточек
-const profileAndCardsData = [api.getUserData(), api.getInitialCards()];
-
-// выполнение обоих промисов
-Promise.all(profileAndCardsData)
-  .then(([profileData, cardsData]) => {
-    userInfo.setUserInfo(profileData);
-    addCardToPage.renderItems(cardsData)
-  }).catch(err => console.log(err))
 
 
 
@@ -235,8 +226,8 @@ const popupWithChangeAvatar = new PopupWithForm(popupChangeAvatar, {
   handleFormSubmit: (data) => {
     api.setProfileAvatar(data)
       .then(() => {
-          userInfo.addAvatar(data.link)
-          popupWithChangeAvatar.close()
+          userInfo.addAvatar(data.link);
+          popupWithChangeAvatar.close();
       })
       .catch(err => console.log(err))
   }
@@ -269,3 +260,15 @@ popupWithChangeAvatar.setEventListeners()
 // }
 // );
 
+
+// массив, где хранятся промисы запросов для профиля и карточек
+const profileAndCardsData = [api.getUserData(), api.getInitialCards()];
+
+// выполнение промисов
+Promise.all(profileAndCardsData)
+  .then(([profileData, cardsData]) => {
+    userInfo.setUserInfo(profileData);
+    // console.log(profileData)
+    userInfo.addAvatar(profileData.avatar)
+    addCardToPage.renderItems(cardsData)
+  }).catch(err => console.log(err))
