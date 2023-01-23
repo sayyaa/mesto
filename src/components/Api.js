@@ -4,26 +4,24 @@ export default class Api {
     this._headers = headers;
   }
 
+  _getPromise(res) {
+      if (res.ok) {
+        return res.json()
+      }
+      return Promise.reject(`Ошибочка вышла: ${res.status}`);
+    }
+
+
   // запрос информации о пользователе с сервера
   getUserData() {
     return fetch(`${this._baseUrl}/users/me`, { headers: this._headers })
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        }
-        return Promise.reject(`Ошибочка вышла: ${res.status}`);
-      })
+      .then(this._getPromise)
   }
 
   // запрос карточек с сервера
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, { headers: this._headers })
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+    .then(this._getPromise)
   }
 
   // редактирование профиля
@@ -36,12 +34,7 @@ export default class Api {
         name: data.name,
         about: data.about
       })
-    }).then(res => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    }).then(this._getPromise)
   }
 
   // замена аватара
@@ -53,12 +46,7 @@ export default class Api {
       body: JSON.stringify({
         avatar: data.link
       })
-    }).then(res => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    }).then(this._getPromise)
   }
 
 
@@ -71,12 +59,7 @@ export default class Api {
       body: JSON.stringify({
         name: data.name,
         link: data.link })
-    }).then(res => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    }).then(this._getPromise)
   }
 
   // удаление карточки
@@ -85,25 +68,7 @@ export default class Api {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
       headers: this._headers,
-    }).then(res => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-  }
-
-  // TEST DEV получить список лайков
-
-  getLikes(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-      headers: this._headers,
-    }).then(res => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    }).then(this._getPromise)
   }
 
   // поставить лайк
@@ -112,12 +77,7 @@ export default class Api {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: 'PUT',
       headers: this._headers,
-    }).then(res => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    }).then(this._getPromise)
   }
 
     // удалить лайк
@@ -126,13 +86,6 @@ export default class Api {
       return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
         method: 'DELETE',
         headers: this._headers,
-      }).then(res => {
-        if (res.ok) {
-          return res.json()
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      }).then(this._getPromise)
     }
-
-
 }

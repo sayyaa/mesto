@@ -21,8 +21,13 @@ export const fromChangeAvatar = popupChangeAvatar.querySelector(".form");
 export const buttonEditProfile = document.querySelector(".hero__edit");
 export const buttonAddCard = document.querySelector(".hero__add");
 export const buttonChangeAvatar = document.querySelector(".hero__profile")
-const buttonFormProfile = popupEditProfile.querySelector(".form__save-btn");
-const buttonFormAddCard = popupAddCard.querySelector(".form__save-btn");
+
+
+const buttonSaveFormProfile = popupEditProfile.querySelector(".form__save-btn");
+const buttonSaveFormAddCard = popupAddCard.querySelector(".form__save-btn");
+const buttonSaveFormAddAvatar = popupChangeAvatar.querySelector('.form__save-btn')
+
+export const saveButtons = [buttonSaveFormProfile, buttonSaveFormAddCard, buttonSaveFormAddAvatar];
 
 // поля
 

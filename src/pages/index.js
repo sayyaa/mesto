@@ -11,7 +11,7 @@ import {
 // константы форм
 import { formProfile, formAddCard, fromChangeAvatar } from "../data/constants.js";
 // кнопки
-import { buttonEditProfile, buttonAddCard, buttonChangeAvatar } from "../data/constants.js";
+import { buttonEditProfile, buttonAddCard, buttonChangeAvatar, saveButtons} from "../data/constants.js";
 // поля (инпуты) профиля
 import { inputName, inputDescription } from "../data/constants.js";
 // элементы, в которых записаны данные профиля
@@ -53,19 +53,6 @@ const openImagePopup = new PopupWithImage(
   popupImageCaption
 );
 
-// функция создания наполненной карточки
-
-// const generateCard = (item) => {
-//   // создаем экземпляр класса Card для формирования карточки
-//   const card = new Card(
-//     item,
-//     ".content__template",
-//     openImagePopup.open.bind(openImagePopup)
-//   );
-//   const cardElement = card.createCard();
-//   return cardElement;
-// };
-
 // создаем экзепляр класса Section для отрисовки карточек на странице
 
 const addCardToPage = new Section(
@@ -89,30 +76,6 @@ const userInfo = new UserInfo({
   avatarElement: heroImg,
 });
 
-// создаем экземпляр класса PopupWithForm для попапа профиля
-
-// const popupWithProfile = new PopupWithForm(popupEditProfile, {
-//   handleFormSubmit: ({ name, about }) => {
-//     // берем значения input.value и передаем на страницу
-//     userInfo.setUserInfo({ name, about });
-//     popupWithProfile.close()
-//   }
-// })
-
-// функция подставляет данные пользователя в форму и открывает ее
-
-// const openPopupWithProfile = () => {
-//   //добавляем данные пользователя в форму профиля
-//   const obj = userInfo.getUserInfo();
-//   popupWithProfile.setInputValues(obj)
-//   //открываем попап формы профиля
-//   popupWithProfile.open();
-// }
-
-// устанавливаем слушатель на попап профиля (отвечает за сабмит формы и закрытие попапа)
-
-// popupWithProfile.setEventListeners()
-
 // открытие попапа редактирования профиля
 
 buttonEditProfile.addEventListener("click", () => {
@@ -120,28 +83,6 @@ buttonEditProfile.addEventListener("click", () => {
   // сбрасываем валидацию у попапа профиля, чтобы при его открытии кнопка сабмита была активна
   formValidators["formChangeProfile"].resetValidation();
 });
-
-// // экземпляр PopupWithForm для попапа с карточками
-
-// const popupWithAddCard = new PopupWithForm(popupAddCard, {
-//   handleFormSubmit: (item) => {
-//     const card = generateCard(item);
-//     addCardToPage.addItem(card);
-//     popupWithAddCard.close();
-//   },
-// });
-
-// // открытие попапа добавляния карточки
-
-// buttonAddCard.addEventListener("click", () => {
-//   popupWithAddCard.open();
-//   // сбрасываем валидацию, чтобы при добавлении второй и последуюших карточек кнопка сабмита была неактивной
-//   formValidators["formAddCard"].resetValidation();
-// });
-
-// // устанавливаем слушатель на попап профиля (отвечает за сабмит формы и закрытие попапа)
-
-// popupWithAddCard.setEventListeners();
 
 // объект formValidators содержит экземпляры класса FormValidator всех форм на странице
 const formValidators = {};
@@ -175,24 +116,38 @@ const api = new Api({
   },
 });
 
-// создаем экземпляр класса PopupWithForm для попапа открытия профиля
+// функция для UX
+
+const renderLoading = (isLoading) => {
+  saveButtons.forEach(saveButton => {
+    if(isLoading) {
+      saveButton.textContent = 'Секунду, идет сохранение...'
+    } else {
+      saveButton.textContent = 'Сохранить'
+    }
+  })
+
+}
+
+// создаем экземпляр класса PopupWithForm для попапа профиля
 
 const popupWithProfile = new PopupWithForm(popupEditProfile, {
   handleFormSubmit: ({ name, about }) => {
+    renderLoading(true)
     api.editProfileData({ name, about })
       .then(({ name, about }) => {
-        console.log({name, about})
         userInfo.setUserInfo({ name, about });
         popupWithProfile.close();
       })
       .catch((error) => console.log(error))
+      .finally(() => renderLoading(false))
   }
 });
 
 // устанавливаем обработчик, в том числе для получения параметров колбэка handleFormSubmit
 popupWithProfile.setEventListeners()
 
-// функция открытия попапа профиля и получения данных
+// функция подставляет данные пользователя в форму и открывает ее
 
 const openPopupWithProfile = () => {
   //добавляем данные пользователя в форму профиля
@@ -206,12 +161,14 @@ const openPopupWithProfile = () => {
 
 const popupWithChangeAvatar = new PopupWithForm(popupChangeAvatar, {
   handleFormSubmit: (data) => {
+    renderLoading(true)
     api.setProfileAvatar(data)
       .then(() => {
         userInfo.addAvatar(data.link);
         popupWithChangeAvatar.close();
       })
       .catch(err => console.log(err))
+      .finally(() => renderLoading(false))
   }
 });
 
@@ -240,7 +197,7 @@ const popupWithApproveDeleteCard = new PopupWithApproveDeleteCard(popupApproveDe
 // устаналиваем слушатель, получаем cardId, currentCard
 popupWithApproveDeleteCard.setEventListeners()
 
-// основная логика карточки
+// основная логика создания наполненной карточки
 
 const generateCard = (data) => {
   // создаем экземпляр класса Card для формирования карточки
@@ -271,12 +228,14 @@ const generateCard = (data) => {
 
 const popupWithAddCard = new PopupWithForm(popupAddCard, {
   handleFormSubmit: (data) => {
+    renderLoading(true)
     api.addNewCard(data)
       .then(data => {
         const card = generateCard(data);
         addCardToPage.addItem(card);
         popupWithAddCard.close();
       }).catch(err => console.log(err))
+        .finally(() => renderLoading(false))
   },
 });
 
@@ -284,15 +243,13 @@ const popupWithAddCard = new PopupWithForm(popupAddCard, {
 
 popupWithAddCard.setEventListeners();
 
-// открытие попапа добавляния карточки
+// открытие попапа добавления карточки
 
 buttonAddCard.addEventListener("click", () => {
   popupWithAddCard.open();
   // сбрасываем валидацию, чтобы при добавлении второй и последуюших карточек кнопка сабмита была неактивной
   formValidators["formAddCard"].resetValidation();
 });
-
-
 
 // массив, где хранятся промисы профиля и карточек
 const profileAndCardsData = [api.getUserData(), api.getInitialCards()];
@@ -303,15 +260,13 @@ let userId = '';
 // выполнение промисов
 Promise.all(profileAndCardsData)
   .then(([profileData, cardsData]) => {
-
-    userInfo.setUserInfo(profileData);
-    // console.log(userInfo.setUserInfo(profileData))
-  // console.log(userInfo.setUserInfo({profileData}))
-  // console.log({profileData})
-
-    userInfo.addAvatar(profileData.avatar)
-
+    // получаем данные для userId
     userId = profileData._id;
-
+    // отрисовываем данные на страницу
+    userInfo.setUserInfo(profileData);
+    // отрисовываем карточки
     addCardToPage.renderItems(cardsData.reverse());
+    // отрисовываем аватар
+    userInfo.addAvatar(profileData.avatar)
   }).catch(err => console.log(err))
+

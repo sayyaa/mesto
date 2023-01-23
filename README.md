@@ -12,5 +12,7 @@
 * native javascript
 * ООП
 * Webpack
+* Асинхронность
+* API
 
-### [Ссылка на работу:](https://sayyaa.github.io/mesto)
+### [Ссылка на сайт](https://sayyaa.github.io/mesto)
