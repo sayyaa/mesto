@@ -11,7 +11,7 @@ import {
 // константы форм
 import { formProfile, formAddCard, fromChangeAvatar } from "../data/constants.js";
 // кнопки
-import { buttonEditProfile, buttonAddCard, buttonChangeAvatar, saveButtons} from "../data/constants.js";
+import { buttonEditProfile, buttonAddCard, buttonChangeAvatar, saveButtons } from "../data/constants.js";
 // поля (инпуты) профиля
 import { inputName, inputDescription } from "../data/constants.js";
 // элементы, в которых записаны данные профиля
@@ -120,7 +120,7 @@ const api = new Api({
 
 const renderLoading = (isLoading) => {
   saveButtons.forEach(saveButton => {
-    if(isLoading) {
+    if (isLoading) {
       saveButton.textContent = 'Секунду, идет сохранение...'
     } else {
       saveButton.textContent = 'Сохранить'
@@ -235,7 +235,7 @@ const popupWithAddCard = new PopupWithForm(popupAddCard, {
         addCardToPage.addItem(card);
         popupWithAddCard.close();
       }).catch(err => console.log(err))
-        .finally(() => renderLoading(false))
+      .finally(() => renderLoading(false))
   },
 });
 
@@ -267,6 +267,6 @@ Promise.all(profileAndCardsData)
     // отрисовываем карточки
     addCardToPage.renderItems(cardsData.reverse());
     // отрисовываем аватар
-    userInfo.addAvatar(profileData.avatar)
+    userInfo.addAvatar(profileData.avatar);
   }).catch(err => console.log(err))
 
