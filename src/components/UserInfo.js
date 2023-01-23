@@ -15,9 +15,10 @@ export default class UserInfo {
 
   //принимает новые данные пользователя и добавляет их на страницу.
 
-  setUserInfo({ name, about }) {
+  setUserInfo({ name, about, _id }) {
     this._nameElement.textContent = name;
     this._aboutElement.textContent = about;
+    this._userId =  _id
   }
 
   addAvatar(image) {

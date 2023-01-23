@@ -13,10 +13,6 @@ export default class PopupWithApproveDeleteCard extends Popup {
     this._currentCard = currentCard;
   }
 
-  close() {
-    super.close()
-  }
-
   setEventListeners() {
     super.setEventListeners();
     this._removeButton.addEventListener('click', () => {

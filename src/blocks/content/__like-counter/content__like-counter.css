@@ -2,5 +2,13 @@
   width: 10px;
   height: 13px;
   margin: 0;
+  margin-top: 5px;
   padding: 0;
+  color: black;
+  font-size: 13px;
+  line-height: 15.73px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -68,10 +68,11 @@ const openImagePopup = new PopupWithImage(
 
 // создаем экзепляр класса Section для отрисовки карточек на странице
 
-const addCardToPage = new Section(item => {
-  const cardElement = generateCard(item);
-  addCardToPage.addItem(cardElement);
-},
+const addCardToPage = new Section(
+  (item) => {
+    const cardElement = generateCard(item);
+    addCardToPage.addItem(cardElement);
+  },
   content
 );
 
@@ -165,6 +166,7 @@ const enableValidation = (config) => {
 // передаем объект в функцию и вызываем ее
 enableValidation(enableValidationConfig);
 
+// создаем экземпляр класса Api
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-57",
   headers: {
@@ -172,20 +174,6 @@ const api = new Api({
     "Content-Type": "application/json",
   },
 });
-// const userInfo = new UserInfo({ nameElement: heroName, aboutElement: heroDescription })
-
-// Promise.resolve(api.getUserData()).then(res => console.log(res)).catch(err => console.log(err))
-
-// const popupWithProfile = new PopupWithForm(popupEditProfile, {
-//   handleFormSubmit: ({ name, about }) => {
-//     api.editeProfileData({ name, about })
-//       .then(({ name, about }) => {
-//         userInfo.setUserInfo({ name, about });
-//         popupWithProfile.close();
-//       })
-//       .catch((err) => console.log(err));
-//   },
-// });
 
 // создаем экземпляр класса PopupWithForm для попапа открытия профиля
 
@@ -193,13 +181,14 @@ const popupWithProfile = new PopupWithForm(popupEditProfile, {
   handleFormSubmit: ({ name, about }) => {
     api.editProfileData({ name, about })
       .then(({ name, about }) => {
+        console.log({name, about})
         userInfo.setUserInfo({ name, about });
         popupWithProfile.close();
       })
       .catch((error) => console.log(error))
   }
-}
-);
+});
+
 // устанавливаем обработчик, в том числе для получения параметров колбэка handleFormSubmit
 popupWithProfile.setEventListeners()
 
@@ -212,16 +201,6 @@ const openPopupWithProfile = () => {
   //открываем попап формы профиля
   popupWithProfile.open();
 };
-
-
-
-
-
-
-console.log(api.getUserData().then(res => console.log(res)))
-console.log(api.getInitialCards().then(res => console.log(res)))
-// console.log(api.editeProfileData({name: 'fedor', about: 'kurlik'}))
-// console.log(api.addNewCard({name: 'site', link: 'http://www.kurlik.ru'}))
 
 // создаем экземпляр класса PopupWithForm для попапа изменения аватара
 
@@ -247,70 +226,21 @@ buttonChangeAvatar.addEventListener('click', () => {
 
 popupWithChangeAvatar.setEventListeners()
 
-
-
-
-
-// const cardBin = document.querySelector(".content__bin");
-
-// cardBin.addEventListener('click', () => {
-//   popupWithApproveDeleteCard.open()
-// })
-
-
-
-// const popupWithProfile = new PopupWithForm(popupEditProfile, {
-//   handleFormSubmit: ({ name, about }) => {
-//     api.editProfileData({ name, about })
-//       .then(({ name, about }) => {
-//         userInfo.setUserInfo({ name, about });
-//         popupWithProfile.close();
-//       })
-//       .catch((error) => console.log(error))
-//   }
-// }
-// );
-
-// const popupWithProfile = new PopupWithForm(popupEditProfile, {
-//   handleFormSubmit: ({ name, about }) => {
-//     api.editProfileData({ name, about })
-//       .then(({ name, about }) => {
-//         userInfo.setUserInfo({ name, about });
-//         popupWithProfile.close();
-//       })
-//       .catch((error) => console.log(error))
-//   }
-// }
-// );
-
-// const popupWithApproveDeleteCard = new PopupWithApproveDeleteCard(popupApproveDelete, {
-//   handleSubmit: (cardId, currentCard) => {
-//     console.log('cardId' , cardId)
-//     console.log('currentCard' , currentCard)
-//     api.deleteCards(cardId).then(() => {
-//         currentCard.remove()
-//         currentCard.delete()
-//         popupWithApproveDeleteCard.close();
-//       }).catch(err => console.log(err))
-//   }
-// })
-
+// создаем экземпляр класса PopupWithApproveDeleteCard для попапа с подтверждением удаления карточки
 
 const popupWithApproveDeleteCard = new PopupWithApproveDeleteCard(popupApproveDelete, {
   handleSubmit: (cardId, currentCard) => {
-    console.log('cardId', cardId)
-    console.log('currentCard', currentCard)
     api.deleteCards(cardId).then(() => {
       currentCard.delete();
       popupWithApproveDeleteCard.close()
     }).catch(err => console.log(err))
-}})
+  }
+})
 
-
-
-
+// устаналиваем слушатель, получаем cardId, currentCard
 popupWithApproveDeleteCard.setEventListeners()
 
+// основная логика карточки
 
 const generateCard = (data) => {
   // создаем экземпляр класса Card для формирования карточки
@@ -320,6 +250,17 @@ const generateCard = (data) => {
     openImagePopup.open.bind(openImagePopup),
     (cardId, currentCard) => {
       popupWithApproveDeleteCard.open(cardId, currentCard);
+    },
+    (cardId, currentCard, likes, isLiked) => {
+      if (!isLiked) {
+        api.setLike(cardId).then(({ likes }) => {
+          currentCard.toggleLike(likes.length)
+        })
+      } else {
+        api.removeLike(cardId).then(({ likes }) => {
+          currentCard.toggleLike(likes.length)
+        })
+      }
     }
   );
   const cardElement = card.createCard();
@@ -339,6 +280,10 @@ const popupWithAddCard = new PopupWithForm(popupAddCard, {
   },
 });
 
+// устанавливаем слушатель на попап профиля (отвечает за сабмит формы и закрытие попапа) и получение data
+
+popupWithAddCard.setEventListeners();
+
 // открытие попапа добавляния карточки
 
 buttonAddCard.addEventListener("click", () => {
@@ -347,24 +292,26 @@ buttonAddCard.addEventListener("click", () => {
   formValidators["formAddCard"].resetValidation();
 });
 
-// устанавливаем слушатель на попап профиля (отвечает за сабмит формы и закрытие попапа)
-
-popupWithAddCard.setEventListeners();
 
 
-let userId = '';
-
-// массив, где хранятся промисы запросов для профиля и карточек
+// массив, где хранятся промисы профиля и карточек
 const profileAndCardsData = [api.getUserData(), api.getInitialCards()];
+
+// объявляем userId
+let userId = '';
 
 // выполнение промисов
 Promise.all(profileAndCardsData)
   .then(([profileData, cardsData]) => {
+
     userInfo.setUserInfo(profileData);
-    // console.log(profileData)
+    // console.log(userInfo.setUserInfo(profileData))
+  // console.log(userInfo.setUserInfo({profileData}))
+  // console.log({profileData})
+
     userInfo.addAvatar(profileData.avatar)
 
     userId = profileData._id;
 
-    addCardToPage.renderItems(cardsData)
+    addCardToPage.renderItems(cardsData.reverse());
   }).catch(err => console.log(err))

@@ -4,13 +4,13 @@ export default class Card {
     this._link = link;
     this._cardId = _id;
     this._userId = userId;
-    // this._userId = 'd01844a04e01376e49b4f5b8'
     this._ownerId = owner._id;
     this._likes = likes;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteIconClick = handleDeleteIconClick;
     this._handleLikeClick = handleLikeClick;
+    this._isLiked = this._likes.some(person => person._id === this._userId);
   }
 
   // получаем готовую разметку, перед размещением на страницу
@@ -37,12 +37,22 @@ export default class Card {
     this._contentCardName.textContent = this._name;
     this._contentImage.alt = `Изображение: ${this._name}`;
 
+    // проверка: удаляем кнопку корзины
     if (this._ownerId !== this._userId) {
       this._contentBin.remove()
     }
+    // получаем количество лайков и записываем в счетчик
+    this._likeCounter.textContent = this._likes.length;
+    // проверка: если поставлен лайк, кнопка активна
+    if(this._isLiked) {
+      this._contentLike.classList.add("content__like_active")
+    }
+
 
     return this._element;
   }
+
+  // переключение состояние лайка
 
   _toggleLike(event) {
     event.target.classList.toggle("content__like_active");
@@ -57,15 +67,19 @@ export default class Card {
         this._handleDeleteIconClick(this._cardId, this)
       })
 
-
-
     // лайк карточке
 
+    // кнопка лайка - "сердечко"
     this._contentLike = this._element.querySelector(".content__like");
+    // счетчик лайков
+    this._likeCounter = this._element.querySelector(".content__like-counter");
 
     this._contentLike.addEventListener("click", (event) => {
+      this._handleLikeClick(this._cardId, this, this._likes, this._isLiked)
       this._toggleLike(event);
+      this._isLiked = !this._isLiked
     });
+
 
     //открытие попапа с картинкой
 
@@ -75,6 +89,12 @@ export default class Card {
     });
   }
 
+  // метод, устанавливающий значение числа длинны массива лайков из промиса в элемент
+  toggleLike(count) {
+    this._likeCounter.textContent = count;
+  }
+
+  // метод удаляющий карточку
   delete() {
     this._element.remove();
   }

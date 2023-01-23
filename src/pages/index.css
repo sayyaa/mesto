@@ -38,11 +38,14 @@
 @import url(../blocks/content/__card/content__card.css);
 @import url(../blocks/content/__img/content__img.css);
 @import url(../blocks/content/__bin/content__bin.css);
+@import url(../blocks/content/__main-container/content__main-container.css);
 @import url(../blocks/content/__name-wrapper/content__name-wrapper.css);
 @import url(../blocks/content/__card-name/content__card-name.css);
 @import url(../blocks/content/__like/content__like.css);
 @import url(../blocks/content/__like/_active/content__like_active.css);
+@import url(../blocks/content/__like-counter-wrapper/content__like-counter-wrapper.css);
 @import url(../blocks/content/__like-counter/content__like-counter.css);
+
 
 /* Footer */
 
