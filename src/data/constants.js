@@ -5,13 +5,16 @@ const popups = [...document.querySelectorAll(".popup")];
 export const popupEditProfile = document.querySelector(".popup_type_edit-profile");
 export const popupAddCard = document.querySelector(".popup_type_add-card");
 export const popupOpenPicture = document.querySelector(".popup_type_open-picture");
-export const popupChangeAvatar = document.querySelector(".popup_type_change-avatar")
+export const popupChangeAvatar = document.querySelector(".popup_type_change-avatar");
+export const popupApproveDelete = document.querySelector(".popup_type_approve-delete");
 
 // формы попапов
 
 export const formProfile = popupEditProfile.querySelector(".form");
 export const formAddCard = popupAddCard.querySelector(".form");
-export const fromChangeAvatar = popupChangeAvatar.querySelector(".form")
+export const fromChangeAvatar = popupChangeAvatar.querySelector(".form");
+
+
 
 // кнопки
 
@@ -32,7 +35,7 @@ export const inputDescription = document.querySelector(
 
 export const heroName = document.querySelector(".hero__name");
 export const heroDescription = document.querySelector(".hero__description");
-export const heroImg = document.querySelector(".hero__img")
+export const heroImg = document.querySelector(".hero__img");
 export const popupImage = document.querySelector(".popup__image");
 export const popupImageCaption = document.querySelector(".popup__image-caption");
 

@@ -173,27 +173,48 @@
         </div>
       </div>
 
+      <div class="popup popup_type_approve-delete">
+        <div class="popup__container">
+          <h2 class="popup__title">Вы уверены?</h2>
+          <button
+            class="popup__close-btn button"
+            type="button"
+            aria-label="Закрыть окно"
+          ></button>
 
+              <button class="popup__remove-btn button">
+                Да
+              </button>
+
+        </div>
+      </div>
 
 
 
     <template class="content__template">
       <article class="content__card" aria-label="Карточка Места">
         <img
-          src="./assets/img/cards/moscow.jpg"
+          src=""
           alt="Москва"
           class="content__img"
         />
         <button
           class="content__bin button"
           aria-label="Удалить карточку"
-        ></button>
+        >
+      <!-- кнопка удаления - корзина -->
+      </button>
         <div class="content__name-wrapper">
-          <h2 class="content__card-name"></h2>
+          <h2 class="content__card-name">
+            <!-- Имя карточки -->
+          </h2>
           <button
             class="content__like button"
             aria-label="Поставить лайк"
-          ></button>
+          >
+          <!-- кнопка лайка - сердечко -->
+        </button>
+        <span class="content__like-counter">7</span>
         </div>
       </article>
     </template>

@@ -1,0 +1,23 @@
+.popup__remove-btn {
+    background-color: black;
+    color: white;
+    font-size: inherit;
+    min-height: 46px;
+    margin: 0 auto;
+    margin-top: 15px;
+    width: 100%;
+    max-width: 358px;
+    transition: opacity .3s ease-in;
+    border-radius: 2px;
+}
+.popup__remove-btn {
+  opacity: .8;
+}
+
+@media screen and (min-width: 1280px) {
+  .popup__remove-btn{
+    padding: 14px 0 18px;
+    max-height: 50px;
+    font-size: 18px;
+  }
+}

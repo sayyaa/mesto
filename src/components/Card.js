@@ -1,15 +1,16 @@
 export default class Card {
-  constructor({ name, link, _id, cardId, owner, likes }, templateSelector, handleCardClick, handleLikeClick, handleDeleteIconClick ) {
+  constructor({ name, link, _id, owner, likes, userId }, templateSelector, handleCardClick, handleDeleteIconClick, handleLikeClick, ) {
     this._name = name;
     this._link = link;
-    this._id = _id;
-    this._cardId = cardId;
-    this._owner = owner;
+    this._cardId = _id;
+    this._userId = userId;
+    // this._userId = 'd01844a04e01376e49b4f5b8'
+    this._ownerId = owner._id;
     this._likes = likes;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
-    this._handleLikeClick = handleLikeClick;
     this._handleDeleteIconClick = handleDeleteIconClick;
+    this._handleLikeClick = handleLikeClick;
   }
 
   // получаем готовую разметку, перед размещением на страницу
@@ -23,9 +24,6 @@ export default class Card {
     return contentElement;
   }
 
-  // _checkCardOwner() {
-  //   if(this_owner.this._id !== user.this._id)
-  // }
 
   // метод, добавляющий данные в карточку
 
@@ -39,6 +37,10 @@ export default class Card {
     this._contentCardName.textContent = this._name;
     this._contentImage.alt = `Изображение: ${this._name}`;
 
+    if (this._ownerId !== this._userId) {
+      this._contentBin.remove()
+    }
+
     return this._element;
   }
 
@@ -51,9 +53,11 @@ export default class Card {
     // удаление карточек
 
     this._contentBin = this._element.querySelector(".content__bin");
-    this._contentBin.addEventListener("click", () => {
-      this._element.remove();
-    });
+      this._contentBin.addEventListener("click", () => {
+        this._handleDeleteIconClick(this._cardId, this)
+      })
+
+
 
     // лайк карточке
 
@@ -69,5 +73,9 @@ export default class Card {
     this._contentImage.addEventListener("click", () => {
       this._handleCardClick(this._name, this._link);
     });
+  }
+
+  delete() {
+    this._element.remove();
   }
 }
