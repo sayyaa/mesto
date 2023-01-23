@@ -10,7 +10,8 @@
     transition: opacity .3s ease-in;
     border-radius: 2px;
 }
-.popup__remove-btn {
+
+.popup__remove-btn:hover {
   opacity: .8;
 }
 
