@@ -52,12 +52,6 @@ export default class Card {
     return this._element;
   }
 
-  // переключение состояние лайка
-
-  _toggleLike(event) {
-    event.target.classList.toggle("content__like_active");
-  }
-
   _setEventListeners() {
 
     // удаление карточек
@@ -76,7 +70,6 @@ export default class Card {
 
     this._contentLike.addEventListener("click", (event) => {
       this._handleLikeClick(this._cardId, this, this._likes, this._isLiked)
-      this._toggleLike(event);
       this._isLiked = !this._isLiked
     });
 
@@ -89,8 +82,14 @@ export default class Card {
     });
   }
 
+  // метод, переключающий состояние лайка
+
+  toggleLikeButtoncondition() {
+    this._contentLike.classList.toggle("content__like_active");
+  }
+
   // метод, устанавливающий значение числа длинны массива лайков из промиса в элемент
-  toggleLike(count) {
+  toggleLikesCount(count) {
     this._likeCounter.textContent = count;
   }
 

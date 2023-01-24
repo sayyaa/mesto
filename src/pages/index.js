@@ -126,7 +126,6 @@ const renderLoading = (isLoading) => {
       saveButton.textContent = 'Сохранить'
     }
   })
-
 }
 
 // создаем экземпляр класса PopupWithForm для попапа профиля
@@ -211,12 +210,14 @@ const generateCard = (data) => {
     (cardId, currentCard, likes, isLiked) => {
       if (!isLiked) {
         api.setLike(cardId).then(({ likes }) => {
-          currentCard.toggleLike(likes.length)
-        })
+          currentCard.toggleLikesCount(likes.length)
+          currentCard.toggleLikeButtoncondition();
+        }).catch(err => console.log(err))
       } else {
         api.removeLike(cardId).then(({ likes }) => {
-          currentCard.toggleLike(likes.length)
-        })
+          currentCard.toggleLikesCount(likes.length);
+          currentCard.toggleLikeButtoncondition();
+        }).catch(err => console.log(err))
       }
     }
   );
