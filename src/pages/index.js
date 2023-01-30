@@ -221,6 +221,7 @@ const generateCard = (data) => {
       }
     }
   );
+  // добавляем данные в карточку и возвращаем ее
   const cardElement = card.createCard();
   return cardElement;
 };
