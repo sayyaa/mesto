@@ -201,7 +201,9 @@ popupWithApproveDeleteCard.setEventListeners()
 const generateCard = (data) => {
   // создаем экземпляр класса Card для формирования карточки
   const card = new Card(
-    { ...data, userId },
+    // объект с карточкой, данные получены из item при создании экземпляра класса Section
+    data,
+    userInfo.getUserId(),
     ".content__template",
     openImagePopup.open.bind(openImagePopup),
     (cardId, currentCard) => {
@@ -221,7 +223,7 @@ const generateCard = (data) => {
       }
     }
   );
-  // добавляем данные в карточку и возвращаем ее
+  // добавляем данные в карточку и возвращаем карточку
   const cardElement = card.createCard();
   return cardElement;
 };
@@ -256,19 +258,18 @@ buttonAddCard.addEventListener("click", () => {
 // массив, где хранятся промисы профиля и карточек
 const profileAndCardsData = [api.getUserData(), api.getInitialCards()];
 
-// объявляем userId
-let userId = '';
-
 // выполнение промисов
 Promise.all(profileAndCardsData)
   .then(([profileData, cardsData]) => {
-    // получаем данные для userId
-    userId = profileData._id;
+    // получаем данные userId и записываем в метод класса UserInfo setUserInfo
+   userInfo.setUserId(profileData._id);
     // отрисовываем данные на страницу
     userInfo.setUserInfo(profileData);
-    // отрисовываем карточки
+    // передаем массив карточек в метод renderItems для отрисовки
+    console.log('aaa',  cardsData)
     addCardToPage.renderItems(cardsData.reverse());
     // отрисовываем аватар
     userInfo.addAvatar(profileData.avatar);
   }).catch(err => console.log(err))
+
 

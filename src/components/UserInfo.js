@@ -26,4 +26,14 @@ export default class UserInfo {
   addAvatar(image) {
     this._avatarElement.src = image;
   }
+
+  // записываем UserId из промиса
+  setUserId(id) {
+    this._userId = id;
+  }
+
+  getUserId() {
+    return this._userId;
+  }
+
 }
